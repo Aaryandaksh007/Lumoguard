@@ -18,6 +18,7 @@ export async function GET(
           take: 5,
           include: {
             findings: true,
+            paypalOrders: true,
           },
         },
       },
@@ -45,6 +46,15 @@ export async function GET(
         findingsByPillar: JSON.parse(r.findingsByPillar),
         findingsBySeverity: JSON.parse(r.findingsBySeverity),
         tokenMap: JSON.parse(r.tokenMap),
+        paypalOrders: r.paypalOrders.map((o) => ({
+          orderId: o.orderId,
+          purpose: o.purpose,
+          environment: o.environment,
+          status: o.status,
+          amountValue: o.amountValue,
+          currencyCode: o.currencyCode,
+          itemSku: o.itemSku,
+        })),
         findings: r.findings.map((f) => ({
           ...f,
           provenance: JSON.parse(f.provenance),

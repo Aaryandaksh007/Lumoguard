@@ -12,6 +12,7 @@
 
 import ZAI from "z-ai-web-dev-sdk";
 import { ClaimGroundingEngine, decomposeClaims } from "@/lib/engines/claims";
+import { CheckoutTruthEngine } from "@/lib/engines/offer-verify";
 import { ConfidentialityShield } from "@/lib/engines/confidentiality";
 import { computeIntentPreservation, expandToSentence, generateInlineDiffChunks } from "@/lib/engines/diff-engine";
 import { TerminologyEngine } from "@/lib/engines/terminology";
@@ -45,6 +46,7 @@ export interface OrchestratorOptions {
   content: string;
   assetType: string;
   visualMeta?: VisualMeta | null;
+  assetId?: string | null;
   airGapped?: boolean;
   /** Deterministic grace test hook: simulate external AI downtime. */
   simulateLlmFailure?: boolean;
@@ -61,6 +63,7 @@ export class VerificationOrchestrator {
   private visualEngine: VisualGeometryEngine;
   private wcagEngine: AccessibilityEngine;
   private shield: ConfidentialityShield;
+  private checkoutEngine: CheckoutTruthEngine;
 
   constructor(private canon: OrchestratorCanon) {
     this.termEngine = new TerminologyEngine(canon.terms);
@@ -69,13 +72,13 @@ export class VerificationOrchestrator {
     this.visualEngine = new VisualGeometryEngine(canon.swatches, canon.logoRules);
     this.wcagEngine = new AccessibilityEngine(canon.swatches);
     this.shield = new ConfidentialityShield(canon.codenames);
+    this.checkoutEngine = new CheckoutTruthEngine();
   }
 
   async runPreflightAudit(opts: OrchestratorOptions): Promise<AuditResult> {
     const t0 = performance.now();
     const { title, content, assetType, visualMeta } = opts;
     const airGapped = opts.airGapped ?? false;
-
     // ---------------- STAGE 1: Deterministic passes (<50ms) ----------------
     const tS1 = performance.now();
 
@@ -104,18 +107,30 @@ export class VerificationOrchestrator {
 
     const stage1LatencyMs = Math.round((performance.now() - tS1) * 100) / 100;
 
-    // ---------------- STAGE 2: Grounded semantic pass ----------------
+    // ---------------- STAGE 2 + PayPal Checkout Truth pass (parallel) ----------------
+    // The grounded semantic pass (external LLM, scrubbed payload) and the
+    // Checkout Truth Engine (AI offer enrichment + PayPal Orders API v2
+    // equivalence checks) run concurrently — both inherit the reversible
+    // confidentiality shield and both degrade deterministically on failure.
     const tS2 = performance.now();
     let llmStatus = "SKIPPED";
     let llmFindings: RawFinding[] = [];
 
-    if (airGapped) {
-      llmStatus = "AIR_GAPPED";
-    } else {
-      const result = await this.runSemanticPass(content, scrubbed, tokenMap, title, opts.simulateLlmFailure);
-      llmStatus = result.status;
-      llmFindings = result.findings;
-    }
+    const semanticTask = airGapped
+      ? Promise.resolve({ status: "AIR_GAPPED" as const, findings: [] as RawFinding[] })
+      : this.runSemanticPass(content, scrubbed, tokenMap, title, opts.simulateLlmFailure);
+    const checkoutTask = this.checkoutEngine.verify({
+      content,
+      scrubbed,
+      tokenMap,
+      assetId: opts.assetId ?? null,
+      airGapped,
+      simulateLlmFailure: opts.simulateLlmFailure,
+    });
+
+    const [semanticResult, checkoutReport] = await Promise.all([semanticTask, checkoutTask]);
+    llmStatus = semanticResult.status;
+    llmFindings = semanticResult.findings;
 
     const stage2LatencyMs = Math.round((performance.now() - tS2) * 100) / 100;
     const totalLatencyMs = Math.round((performance.now() - t0) * 100) / 100;
@@ -129,6 +144,7 @@ export class VerificationOrchestrator {
         ...deterministicClaimFindings,
         ...visualFindings,
         ...wcagFindings,
+        ...checkoutReport.findings,
       ],
       llmFindings
     );
@@ -203,11 +219,17 @@ export class VerificationOrchestrator {
       llmStatus,
       llmModel: llmStatus === "OK" ? LLM_MODEL_ID : null,
       promptVersion: llmStatus === "OK" ? PROMPT_VERSION : null,
+      paypalStatus:
+        checkoutReport.offers.length > 0
+          ? `${checkoutReport.mode}/AI_${checkoutReport.aiEnrichment}`
+          : null,
+      paypalLatencyMs: checkoutReport.latencyMs,
       findingsByPillar,
       findingsBySeverity,
       scrubbedContent: scrubbed,
       tokenMap,
       findings: merged,
+      paypalOrders: checkoutReport.orders,
     };
   }
 

@@ -6,6 +6,7 @@ import {
   Activity,
   BookMarked,
   ClipboardCheck,
+  CreditCard,
   FlaskConical,
   GitBranch,
   LayoutDashboard,
@@ -37,12 +38,29 @@ import { GovernanceInsights } from "./GovernanceInsights";
 import { AuditTrail } from "./AuditTrail";
 import { ROLE_LABELS, type WorkflowRole } from "@/lib/types";
 import type { AssetListItem } from "@/lib/api-types";
+import { cn } from "@/lib/utils";
 
 export function LoomGuardApp() {
   const { activeRole, setActiveRole, privacyLock, togglePrivacyLock, activeTab, setActiveTab } =
     useLoomGuard();
   const [assets, setAssets] = useState<AssetListItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [paypal, setPaypal] = useState<{
+    mode: string;
+    configured: boolean;
+    api: string;
+  } | null>(null);
+
+  useEffect(() => {
+    void (async () => {
+      try {
+        const res = await fetch("/api/paypal/status");
+        if (res.ok) setPaypal(await res.json());
+      } catch {
+        /* transient */
+      }
+    })();
+  }, []);
 
   const refreshAssets = useMemo(
     () => async () => {
@@ -117,6 +135,47 @@ export function LoomGuardApp() {
                 </TooltipContent>
               </Tooltip>
 
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div
+                    className={cn(
+                      "flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5",
+                      paypal?.mode === "LIVE"
+                        ? "border-emerald-300 bg-emerald-50"
+                        : paypal?.mode === "SANDBOX"
+                          ? "border-sky-300 bg-sky-50"
+                          : "border-slate-200 bg-slate-50"
+                    )}
+                  >
+                    <CreditCard
+                      className={cn(
+                        "h-4 w-4",
+                        paypal?.mode === "LIVE"
+                          ? "text-emerald-600"
+                          : paypal?.mode === "SANDBOX"
+                            ? "text-sky-600"
+                            : "text-slate-400"
+                      )}
+                      aria-hidden
+                    />
+                    <span className="hidden font-mono text-[10.5px] font-semibold uppercase tracking-wide sm:inline">
+                      PayPal {paypal?.mode ?? "…"}
+                    </span>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="max-w-72 text-left">
+                  Checkout Truth Engine — {paypal?.api ?? "Orders API v2"}. Every monetary offer
+                  in audited content is re-charged through PayPal Orders API v2 against the
+                  Merchant Pricing Canon; advertised ≠ charged becomes a CRITICAL finding.
+                  {paypal && !paypal.configured && (
+                    <span className="mt-1 block text-amber-600">
+                      Simulation mode: add PAYPAL_CLIENT_ID / PAYPAL_CLIENT_SECRET to .env — no code
+                      changes needed, orders go to the live sandbox the moment keys land.
+                    </span>
+                  )}
+                </TooltipContent>
+              </Tooltip>
+
               <div className="flex items-center gap-2">
                 <span className="hidden text-[11px] font-medium uppercase tracking-wide text-slate-400 md:inline">
                   Acting as
@@ -186,8 +245,8 @@ export function LoomGuardApp() {
             </p>
             <p className="flex items-center gap-1.5">
               <Activity className="h-3.5 w-3.5" aria-hidden />
-              AI disclosure: Stage-2 semantic passes use an external LLM behind the reversible
-              confidentiality shield.
+              AI: Stage-2 semantic passes + offer-term extraction via external LLM behind the
+              reversible confidentiality shield · Payments: PayPal Orders API v2.
               <Sparkles className="h-3 w-3 text-violet-500" aria-hidden />
             </p>
           </div>

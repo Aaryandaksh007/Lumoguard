@@ -329,7 +329,7 @@ export function FilmExperience() {
           numeral="III"
           act="ACT III — THE FABRIC THAT HOLDS"
           title="The Fabric That Holds"
-          line="SIX PILLARS · SURGICAL DIFFS · FULL PROVENANCE"
+          line="SEVEN PILLARS · SURGICAL DIFFS · FULL PROVENANCE"
           weave={0.78}
           energy={0.6}
         />

@@ -5,6 +5,7 @@ import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-mot
 import {
   Accessibility,
   AudioWaveform,
+  CreditCard,
   EyeOff,
   Palette,
   Scale,
@@ -15,7 +16,7 @@ import { Scene, Reveal, Words, Kicker, useCountUp, filmPhase } from "./bits";
 import { cn } from "@/lib/utils";
 
 /* ════════════════════════════════════════════════════════════
-   PILLARS — six cards, corner-bracketed like evidence tags.
+   PILLARS — seven cards, corner-bracketed like evidence tags.
    ════════════════════════════════════════════════════════════ */
 
 const PILLARS = [
@@ -39,6 +40,13 @@ const PILLARS = [
     engine: "HYBRID",
     proof: "Atomic claims checked against the fact ledger. Aspiration is not a promise.",
     example: "FACT-031 · SUPERSEDED · DISCLAIMER ATTACHED",
+  },
+  {
+    icon: CreditCard,
+    name: "Transaction Integrity",
+    engine: "PAYPAL × AI",
+    proof: "Every advertised price is re-charged through the PayPal Orders API. What the copy promises is what the checkout charges.",
+    example: "ADV $19 ↔ CHG $24.99 · ORDER 5XK09…",
   },
   {
     icon: Palette,
@@ -66,14 +74,14 @@ const PILLARS = [
 export function PillarsScene() {
   return (
     <Scene
-      act="ACT III — SIX PILLARS"
+      act="ACT III — SEVEN PILLARS"
       weave={0.82}
       energy={0.62}
       className="relative px-6 py-32 sm:py-44"
     >
       <div className="mx-auto max-w-6xl">
         <Reveal>
-          <Kicker>Six pillars · one canon</Kicker>
+          <Kicker>Seven pillars · one canon</Kicker>
         </Reveal>
         <h2 className="mt-6 max-w-3xl font-display text-[clamp(2rem,5vw,3.8rem)] leading-[1.08] text-film-ivory">
           <Words text="Every thread," stagger={0.06} />{" "}
@@ -161,6 +169,14 @@ const FINDINGS: FindingCard[] = [
     provenance: "FACT LEDGER · SEMANTIC · DISCLAIMER AUTO-ATTACHED · INTENT 96%",
   },
   {
+    pillar: "TRANSACTION_INTEGRITY",
+    rule: "PAY-104",
+    severity: "CRITICAL",
+    original: "$19 a month",
+    suggested: "$24.99 a month",
+    provenance: "PAYPAL ORDERS API v2 · ADV ≠ CHG · DRIP PRICING BLOCKED",
+  },
+  {
     pillar: "CONFIDENTIALITY",
     rule: "SEC-112",
     severity: "CRITICAL",
@@ -182,7 +198,7 @@ export function DiffTheaterScene() {
 
   useMotionValueEvent(p, "change", (v) => {
     const s =
-      v < 0.1 ? 0 : v < 0.28 ? 1 : v < 0.46 ? 2 : v < 0.62 ? 3 : v < 0.8 ? 4 : 5;
+      v < 0.07 ? 0 : v < 0.19 ? 1 : v < 0.31 ? 2 : v < 0.43 ? 3 : v < 0.57 ? 4 : v < 0.76 ? 5 : 6;
     if (s !== stepRef.current) {
       stepRef.current = s;
       setStep(s);
@@ -191,12 +207,13 @@ export function DiffTheaterScene() {
     filmPhase.target.energy = 0.72;
   });
 
-  const readiness = useCountUp(step >= 4 ? 96 : 41, step >= 4, 1400);
-  const intent = useCountUp(step >= 4 ? 98 : 0, step >= 4, 1500);
+  const readiness = useCountUp(step >= 5 ? 96 : 41, step >= 5, 1400);
+  const intent = useCountUp(step >= 5 ? 98 : 0, step >= 5, 1500);
 
   const f1 = step >= 1;
   const f2 = step >= 2;
   const f3 = step >= 3;
+  const f4 = step >= 4;
 
   return (
     <Scene
@@ -204,7 +221,7 @@ export function DiffTheaterScene() {
       act="ACT III — THE SURGICAL DIFF"
       weave="dyn"
       energy="dyn"
-      className="relative h-[380vh]"
+      className="relative h-[440vh]"
     >
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden px-4 py-16 sm:px-6">
         <div className="w-full max-w-6xl">
@@ -220,7 +237,7 @@ export function DiffTheaterScene() {
             <div
               className={cn(
                 "relative rounded-2xl border border-white/10 bg-film-ink-2/85 p-6 backdrop-blur-sm transition-opacity duration-700 ease-out-x sm:p-8",
-                step >= 5 ? "opacity-25" : "opacity-100"
+                step >= 6 ? "opacity-25" : "opacity-100"
               )}
             >
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
@@ -249,8 +266,9 @@ export function DiffTheaterScene() {
                   wrong="guaranteed to double your money in 90 days"
                   right="build savings, on your terms*"
                 />
-                , powered by{" "}
-                <EditSpan active={f3} wrong="Project Nightingale" right="TOK-7F3A" />.
+                , membership at just{" "}
+                <EditSpan active={f3} wrong="$19 a month" right="$24.99 a month" />, powered by{" "}
+                <EditSpan active={f4} wrong="Project Nightingale" right="TOK-7F3A" />.
               </p>
 
               <p
@@ -260,14 +278,15 @@ export function DiffTheaterScene() {
                 )}
               >
                 *REQUIRED DISCLAIMER — ATTACHED BY FACT-031: “Savings outcomes vary.
-                Aurelia Black is a deposit product, not an investment.”
+                Aurelia Black is a deposit product, not an investment.” · PAY-104 VERIFIED
+                AGAINST PAYPAL ORDER 5XK09283TMZ — ADVERTISED = CHARGED.
               </p>
 
               {/* intent meter */}
               <div
                 className={cn(
                   "mt-6 transition-all duration-700 ease-out-x",
-                  step >= 4 ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+                  step >= 5 ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
                 )}
               >
                 <div className="flex items-baseline justify-between">
@@ -342,9 +361,9 @@ export function DiffTheaterScene() {
         <div
           className={cn(
             "absolute inset-0 flex flex-col items-center justify-center bg-film-ink/80 px-6 text-center backdrop-blur-sm transition-opacity duration-700 ease-out-x",
-            step >= 5 ? "opacity-100" : "pointer-events-none opacity-0"
+            step >= 6 ? "opacity-100" : "pointer-events-none opacity-0"
           )}
-          aria-hidden={step < 5}
+          aria-hidden={step < 6}
         >
           <p className="font-display text-[clamp(2rem,5.4vw,4rem)] leading-[1.1] text-film-ivory">
             Not a rewrite.
@@ -564,7 +583,7 @@ export function FinaleScene({ onEnterProduct }: { onEnterProduct: () => void }) 
           <div className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-4">
             {[
               ["<50MS", "STAGE-1 PASS"],
-              ["6", "PILLARS"],
+              ["7", "PILLARS"],
               ["100%", "PROVENANCE"],
               ["0", "HALLUCINATIONS"],
             ].map(([v, l]) => (

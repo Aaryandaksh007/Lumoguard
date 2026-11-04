@@ -23,6 +23,7 @@ const PILLAR_ICONS: Record<Pillar, string> = {
   TERMINOLOGY: "🔤",
   VOICE: "🎙️",
   FACT_CLAIM: "⚖️",
+  TRANSACTION_INTEGRITY: "💳",
   VISUAL_GEOMETRY: "🎨",
   ACCESSIBILITY_WCAG: "♿",
   CONFIDENTIALITY: "🛡️",
@@ -73,19 +74,28 @@ export function VerdictBadge({ verdict }: { verdict: string | null }) {
 export function EngineBadge({ engine }: { engine: string }) {
   const isLocal = engine.includes("LOCAL") || engine.includes("NUMERIC");
   const isLlm = engine.includes("EXTERNAL");
+  const isPaypal = engine.includes("PAYPAL");
   return (
     <Badge
       variant="outline"
       className={cn(
         "gap-1 font-mono text-[10px]",
-        isLlm
-          ? "border-violet-300 bg-violet-50 text-violet-700"
-          : isLocal
-            ? "border-emerald-300 bg-emerald-50 text-emerald-700"
-            : "border-amber-300 bg-amber-50 text-amber-700"
+        isPaypal
+          ? "border-sky-300 bg-sky-50 text-sky-800"
+          : isLlm
+            ? "border-violet-300 bg-violet-50 text-violet-700"
+            : isLocal
+              ? "border-emerald-300 bg-emerald-50 text-emerald-700"
+              : "border-amber-300 bg-amber-50 text-amber-700"
       )}
     >
-      {isLlm ? "◈ EXTERNAL AI" : isLocal ? "⚡ DETERMINISTIC" : "🛡️ PRESIDIO PROXY"}
+      {isPaypal
+        ? "💳 PAYPAL ORDERS API V2"
+        : isLlm
+          ? "◈ EXTERNAL AI"
+          : isLocal
+            ? "⚡ DETERMINISTIC"
+            : "🛡️ PRESIDIO PROXY"}
     </Badge>
   );
 }

@@ -45,6 +45,24 @@ export const DEMO_VISUAL_META = {
   },
 };
 
+// ── Demo asset 2: the Checkout Truth Engine showcase ──────────
+// Planted errors (PayPal Orders API v2 × AI):
+// 7. Drip pricing: "$19 a month" advertised vs AURE-BLACK-MEMB
+//    canonical charge $24.99 (CRITICAL mismatch)
+// 8. Verified offer: "$10 cash back" reconciles with
+//    AURE-CASHBACK-CAP $10.00 (checkout truth recorded)
+// 9. Unmapped offer: "$200 a year" Concierge tier has no SKU
+// Plus voice clichés for the deterministic pillar.
+export const DEMO_REWARDS_EMAIL = `# Aurelia Black — Spring Rewards Refresh
+
+Spring arrives early for members. This season, the Aurelia Black membership is just $19 a month — our lowest spring rate ever — with every benefit unlocked from day one.
+
+Members earn $10 cash back every weekend, credited automatically to their Aurelia wallet by Monday morning. No caps, no asterisks, no fine print.
+
+For a limited time, add the Concierge tier for $200 a year and unlock white-glove travel planning around the clock.
+
+The new Aurelia Black Card ensures you save more. Delve into the details and harness the power of seamless rewards.`;
+
 export async function ensureSeeded(): Promise<void> {
   const termCount = await db.canonTerm.count();
 
@@ -276,6 +294,22 @@ export async function ensureSeeded(): Promise<void> {
         assetType: "MARKDOWN",
         content: DEMO_PRESS_RELEASE,
         visualMeta: JSON.stringify(DEMO_VISUAL_META),
+        status: "DRAFT",
+      },
+    });
+  }
+
+  // Second demo asset — seeded independently so existing databases pick it up.
+  const hasRewardsEmail = await db.asset.findFirst({
+    where: { title: "Aurelia Black — Spring Rewards Email" },
+    select: { id: true },
+  });
+  if (!hasRewardsEmail) {
+    await db.asset.create({
+      data: {
+        title: "Aurelia Black — Spring Rewards Email",
+        assetType: "MARKDOWN",
+        content: DEMO_REWARDS_EMAIL,
         status: "DRAFT",
       },
     });

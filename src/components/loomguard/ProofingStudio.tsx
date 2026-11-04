@@ -5,6 +5,7 @@ import {
   AlertTriangle,
   ChevronDown,
   CircleCheck,
+  CreditCard,
   FilePlus2,
   Gauge,
   Loader2,
@@ -12,6 +13,7 @@ import {
   Save,
   ScanSearch,
   ShieldCheck,
+  Sparkles,
   Timer,
   Zap,
 } from "lucide-react";
@@ -39,6 +41,7 @@ import { cn } from "@/lib/utils";
 const PILLAR_ORDER: Pillar[] = [
   "CONFIDENTIALITY",
   "FACT_CLAIM",
+  "TRANSACTION_INTEGRITY",
   "TERMINOLOGY",
   "VOICE",
   "VISUAL_GEOMETRY",
@@ -309,6 +312,10 @@ export function ProofingStudio({
               </Card>
             )}
 
+            {latestRun && (
+              <CheckoutTruthPanel run={latestRun} />
+            )}
+
             {latestRun && latestRun.findings.length > 0 && (
               <div className="space-y-3">
                 <div className="flex items-center justify-between px-1">
@@ -421,6 +428,7 @@ function RunSummary({ run }: { run: RunDTO }) {
         : run.llmStatus === "DEGRADED"
           ? "bg-amber-100 text-amber-800 border-amber-300"
           : "bg-slate-100 text-slate-500 border-slate-200";
+  const paypalMode = run.paypalStatus?.split("/")[0] ?? null;
 
   return (
     <Card className="border-slate-200">
@@ -451,6 +459,23 @@ function RunSummary({ run }: { run: RunDTO }) {
           LLM: {run.llmStatus}
           {run.llmModel ? ` · ${run.llmModel}` : ""}
         </Badge>
+        {paypalMode && (
+          <Badge
+            variant="outline"
+            className={cn(
+              "gap-1 font-mono text-[10px]",
+              paypalMode === "LIVE"
+                ? "border-emerald-300 bg-emerald-50 text-emerald-800"
+                : paypalMode === "SANDBOX"
+                  ? "border-sky-300 bg-sky-50 text-sky-800"
+                  : "border-slate-300 bg-slate-50 text-slate-600"
+            )}
+          >
+            <CreditCard className="h-3 w-3" aria-hidden />
+            PayPal: {paypalMode}
+            {run.paypalLatencyMs != null ? ` · ${run.paypalLatencyMs.toFixed(0)}ms` : ""}
+          </Badge>
+        )}
         <span className="font-mono text-[10px] text-slate-400">
           {new Date(run.createdAt).toLocaleTimeString()}
         </span>
@@ -465,6 +490,147 @@ function RunSummary({ run }: { run: RunDTO }) {
             🛡️ {Object.keys(run.tokenMap).length} secret(s) masked pre-transmission
           </Badge>
         )}
+      </CardContent>
+    </Card>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════
+   The Checkout Truth panel — PayPal Orders API v2 evidence strip.
+   Renders when the audited asset contains monetary offers: every
+   advertised price is re-charged through the PayPal Orders API
+   against the Merchant Pricing Canon; advertised ≠ charged becomes
+   a CRITICAL finding before the campaign ever ships.
+   ════════════════════════════════════════════════════════════ */
+
+function CheckoutTruthPanel({ run }: { run: RunDTO }) {
+  const payFindings = run.findings.filter((f) => f.pillar === "TRANSACTION_INTEGRITY");
+  if (payFindings.length === 0 && (run.paypalOrders?.length ?? 0) === 0) return null;
+
+  const [modeRaw, aiState] = (run.paypalStatus ?? "SIMULATION/AI_NONE").split("/");
+  const aiOk = aiState === "AI_OK";
+  const verified = payFindings.filter((f) => f.verdict === "CHECKOUT_TRUTH_VERIFIED").length;
+  const mismatched = payFindings.filter((f) => f.verdict === "ADVERTISED_CHARGE_MISMATCH").length;
+  const unmapped = payFindings.filter((f) => f.verdict === "NO_PURCHASABLE_SKU").length;
+
+  return (
+    <Card className="border-sky-200 bg-gradient-to-b from-sky-50/60 to-white">
+      <CardHeader className="flex flex-row flex-wrap items-center gap-2 space-y-0 px-4 py-3">
+        <CardTitle className="flex items-center gap-2 text-[14px] text-slate-800">
+          <CreditCard className="h-4 w-4 text-sky-600" aria-hidden />
+          Checkout Truth Engine
+        </CardTitle>
+        <Badge
+          variant="outline"
+          className={cn(
+            "font-mono text-[10px]",
+            modeRaw === "LIVE"
+              ? "border-emerald-300 bg-emerald-50 text-emerald-800"
+              : modeRaw === "SANDBOX"
+                ? "border-sky-300 bg-white text-sky-800"
+                : "border-slate-300 bg-white text-slate-600"
+          )}
+        >
+          PAYPAL ORDERS API v2 · {modeRaw}
+        </Badge>
+        <Badge
+          variant="outline"
+          className={cn(
+            "gap-1 font-mono text-[10px]",
+            aiOk
+              ? "border-violet-300 bg-violet-50 text-violet-700"
+              : "border-slate-300 bg-white text-slate-500"
+          )}
+        >
+          <Sparkles className="h-3 w-3" aria-hidden />
+          AI offer extraction: {aiState?.replace("AI_", "") ?? "NONE"}
+        </Badge>
+        <span className="ml-auto font-mono text-[10px] text-slate-400">
+          {run.paypalOrders?.length ?? 0} order{run.paypalOrders?.length === 1 ? "" : "s"} on record
+        </span>
+      </CardHeader>
+      <CardContent className="space-y-2.5 px-4 pb-4">
+        <p className="text-[12px] leading-relaxed text-slate-500">
+          Every monetary offer in this asset was re-charged through the PayPal Orders API against
+          the Merchant Pricing Canon — advertised vs. charged, field by field, before publication.
+        </p>
+
+        {payFindings.map((f) => {
+          const p = f.provenance?.paypal;
+          const isMismatch = f.verdict === "ADVERTISED_CHARGE_MISMATCH";
+          const isUnmapped = f.verdict === "NO_PURCHASABLE_SKU";
+          return (
+            <div
+              key={f.findingId}
+              className={cn(
+                "rounded-lg border bg-white px-3 py-2.5",
+                isMismatch
+                  ? "border-red-200"
+                  : isUnmapped
+                    ? "border-amber-200"
+                    : "border-emerald-200"
+              )}
+            >
+              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                <span
+                  className={cn(
+                    "rounded px-1.5 py-0.5 font-mono text-[9px] font-bold tracking-wide",
+                    isMismatch
+                      ? "bg-red-600 text-white"
+                      : isUnmapped
+                        ? "bg-amber-400 text-amber-950"
+                        : "bg-emerald-600 text-white"
+                  )}
+                >
+                  {isMismatch ? "DRIP PRICING" : isUnmapped ? "NO SKU" : "VERIFIED"}
+                </span>
+                <span className="font-mono text-[11px] font-semibold text-slate-700">
+                  {p
+                    ? `advertised ${p.advertised.amount} ${p.advertised.currency}`
+                    : "offer with no purchasable product"}
+                  {p && !isUnmapped && (
+                    <>
+                      {" "}
+                      <span className={isMismatch ? "text-red-600" : "text-slate-400"}>≠</span>{" "}
+                      <span className={isMismatch ? "text-red-600" : "text-emerald-700"}>
+                        charged {p.charged.amount} {p.charged.currency}
+                      </span>
+                    </>
+                  )}
+                </span>
+                {p?.sku && (
+                  <span className="font-mono text-[10px] text-slate-400">SKU {p.sku}</span>
+                )}
+                {p?.orderId && !p.orderId.startsWith("SIM-") && (
+                  <span className="ml-auto font-mono text-[10px] text-sky-700">{p.orderId}</span>
+                )}
+                {p?.orderId?.startsWith("SIM-") && (
+                  <span className="ml-auto font-mono text-[10px] text-slate-400">
+                    {p.orderId} (sim — add PayPal keys to .env)
+                  </span>
+                )}
+              </div>
+              <p className="mt-1.5 line-clamp-2 text-[11.5px] leading-snug text-slate-500">
+                {f.explanation}
+              </p>
+            </div>
+          );
+        })}
+
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-sky-100 pt-2 font-mono text-[10px] text-slate-400">
+          <span className="text-emerald-600">{verified} verified</span>
+          <span className={mismatched > 0 ? "font-bold text-red-600" : "text-slate-400"}>
+            {mismatched} mismatched
+          </span>
+          <span className={unmapped > 0 ? "text-amber-600" : "text-slate-400"}>
+            {unmapped} unmapped
+          </span>
+          {run.paypalOrders && run.paypalOrders.length > 0 && (
+            <span className="ml-auto truncate" title={run.paypalOrders.map((o) => o.orderId).join(", ")}>
+              receipts: {run.paypalOrders.map((o) => o.orderId).join(" · ")}
+            </span>
+          )}
+        </div>
       </CardContent>
     </Card>
   );

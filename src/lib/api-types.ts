@@ -38,6 +38,16 @@ export interface FindingDTO {
   createdAt: string;
 }
 
+export interface PaypalOrderDTO {
+  orderId: string;
+  purpose: string;
+  environment: "SANDBOX" | "LIVE" | "SIMULATION";
+  status: string;
+  amountValue: string;
+  currencyCode: string;
+  itemSku: string | null;
+}
+
 export interface RunDTO {
   id: string;
   runId: string;
@@ -49,12 +59,15 @@ export interface RunDTO {
   llmStatus: string;
   llmModel: string | null;
   promptVersion: string | null;
+  paypalStatus: string | null;
+  paypalLatencyMs: number | null;
   scrubbedContent: string | null;
   tokenMap: Record<string, string>;
   findingsByPillar: Record<string, number>;
   findingsBySeverity: Record<string, number>;
   createdAt: string;
   findings: FindingDTO[];
+  paypalOrders?: PaypalOrderDTO[];
 }
 
 export interface AssetDetail {

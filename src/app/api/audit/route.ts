@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
       content: asset.content,
       assetType: asset.assetType,
       visualMeta,
+      assetId: asset.id,
       airGapped,
       simulateLlmFailure,
     });
@@ -50,10 +51,29 @@ export async function POST(req: NextRequest) {
         llmStatus: result.llmStatus,
         llmModel: result.llmModel,
         promptVersion: result.promptVersion,
+        paypalStatus: result.paypalStatus ?? null,
+        paypalLatencyMs: result.paypalLatencyMs ?? null,
         findingsByPillar: JSON.stringify(result.findingsByPillar),
         findingsBySeverity: JSON.stringify(result.findingsBySeverity),
       },
     });
+
+    // Persist the PayPal order receipts (Checkout Truth Engine evidence)
+    if (result.paypalOrders && result.paypalOrders.length > 0) {
+      await db.paypalOrder.createMany({
+        data: result.paypalOrders.map((o) => ({
+          orderId: o.orderId,
+          runId: run.id,
+          purpose: o.purpose,
+          environment: o.environment,
+          status: o.status,
+          amountValue: o.amountValue,
+          currencyCode: o.currencyCode,
+          itemSku: o.itemSku ?? null,
+          breakdown: JSON.stringify(o.breakdown),
+        })),
+      });
+    }
 
     // Persist findings
     if (result.findings.length > 0) {
@@ -165,6 +185,16 @@ export async function POST(req: NextRequest) {
           stage1Ms: result.stage1LatencyMs,
           stage2Ms: result.stage2LatencyMs,
           llmStatus: result.llmStatus,
+          paypal: {
+            status: result.paypalStatus,
+            latencyMs: result.paypalLatencyMs,
+            orders: result.paypalOrders?.map((o) => ({
+              orderId: o.orderId,
+              sku: o.itemSku,
+              amount: `${o.amountValue} ${o.currencyCode}`,
+              environment: o.environment,
+            })) ?? [],
+          },
           airGapped,
         }),
       },
@@ -174,6 +204,7 @@ export async function POST(req: NextRequest) {
       where: { id: run.id },
       include: {
         findings: true,
+        paypalOrders: true,
       },
     });
 
@@ -187,6 +218,15 @@ export async function POST(req: NextRequest) {
         findingsByPillar: JSON.parse(persistedRun!.findingsByPillar),
         findingsBySeverity: JSON.parse(persistedRun!.findingsBySeverity),
         tokenMap: JSON.parse(persistedRun!.tokenMap),
+        paypalOrders: persistedRun!.paypalOrders.map((o) => ({
+          orderId: o.orderId,
+          purpose: o.purpose,
+          environment: o.environment,
+          status: o.status,
+          amountValue: o.amountValue,
+          currencyCode: o.currencyCode,
+          itemSku: o.itemSku,
+        })),
         findings: persistedRun!.findings.map((f) => ({
           ...f,
           provenance: JSON.parse(f.provenance),
@@ -228,4 +268,7 @@ const RULE_NAMES: Record<string, string> = {
   "RULE-WCAG-EMPTY-BUTTON": "Accessible Button Names (SC 4.1.2)",
   "RULE-CONFIDENTIAL-DENYLIST": "Confidential Codename Deny-List",
   "RULE-CONFIDENTIAL-PII": "PII Transmission Masking",
+  "RULE-PAY-AD-CHARGE-MISMATCH": "Advertised = Charged (PayPal Orders API v2)",
+  "RULE-PAY-NO-PURCHASABLE-SKU": "Monetary Offer Maps to a Purchasable SKU",
+  "RULE-PAY-OFFER-VERIFIED": "Checkout Truth Verified (PayPal Order on Record)",
 };

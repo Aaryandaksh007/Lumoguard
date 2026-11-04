@@ -3,10 +3,11 @@
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Cpu, Database, EyeOff, Link2, Timer, Unlock } from "lucide-react";
+import { CreditCard, Cpu, Database, EyeOff, Link2, Timer, Unlock } from "lucide-react";
 import { EngineBadge } from "./badges";
 import type { FindingDTO } from "@/lib/api-types";
 import type { Provenance } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 /**
  * Secret Weapon #2 — the Inkloom "Context Trace" Provenance Drawer.
@@ -77,6 +78,53 @@ export function TraceDrawer({
               </dd>
             </dl>
           </section>
+
+          {/* 1b. PayPal Order Receipt — Checkout Truth evidence */}
+          {p.paypal && (
+            <section className="rounded-xl border border-sky-200 bg-sky-50/60 p-4">
+              <h3 className="mb-2 flex items-center gap-2 text-[13px] font-bold text-slate-800">
+                <CreditCard className="h-4 w-4 text-sky-600" aria-hidden />
+                PayPal Order Receipt — Checkout Truth
+              </h3>
+              <dl className="grid grid-cols-[110px_1fr] gap-x-3 gap-y-1.5 text-[12px]">
+                <dt className="text-slate-500">Order</dt>
+                <dd className="font-mono text-[11px] font-semibold text-sky-800">{p.paypal.orderId}</dd>
+                <dt className="text-slate-500">Environment</dt>
+                <dd className="font-mono text-[11px] text-slate-700">
+                  {p.paypal.environment} · intent {p.paypal.intent}
+                </dd>
+                <dt className="text-slate-500">Advertised</dt>
+                <dd className="font-mono text-[11px] text-slate-700">
+                  {p.paypal.advertised.amount} {p.paypal.advertised.currency}
+                </dd>
+                <dt className="text-slate-500">Charged</dt>
+                <dd
+                  className={cn(
+                    "font-mono text-[11px] font-semibold",
+                    p.paypal.advertised.amount === p.paypal.charged.amount &&
+                      p.paypal.advertised.currency === p.paypal.charged.currency
+                      ? "text-emerald-700"
+                      : "text-red-600"
+                  )}
+                >
+                  {p.paypal.charged.amount} {p.paypal.charged.currency}
+                </dd>
+                {p.paypal.sku && (
+                  <>
+                    <dt className="text-slate-500">SKU</dt>
+                    <dd className="font-mono text-[11px] text-slate-700">{p.paypal.sku}</dd>
+                  </>
+                )}
+                <dt className="text-slate-500">Order status</dt>
+                <dd className="font-mono text-[11px] text-slate-700">{p.paypal.status}</dd>
+              </dl>
+              <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
+                Created via PayPal Orders API v2 (OAuth2 client credentials) against the Merchant
+                Pricing Canon — the pre-publication proof that what the copy promises is what the
+                checkout charges.
+              </p>
+            </section>
+          )}
 
           {/* 2. Context Lineage */}
           <section className="rounded-xl border border-slate-200 bg-slate-50 p-4">

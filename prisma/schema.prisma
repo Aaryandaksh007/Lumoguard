@@ -105,10 +105,33 @@ model AuditRun {
   llmStatus          String    @default("SKIPPED") // OK | DEGRADED | FAILED | AIR_GAPPED
   llmModel           String?
   promptVersion      String?
+  paypalStatus       String? // SANDBOX | LIVE | SIMULATION (+ AI enrichment state)
+  paypalLatencyMs    Float?
   findingsByPillar   String    @default("{}") // JSON
   findingsBySeverity String    @default("{}") // JSON
   createdAt          DateTime  @default(now())
   findings           Finding[]
+  paypalOrders       PaypalOrder[]
+}
+
+// PayPal Orders API v2 records created during pre-publication
+// claim verification (Checkout Truth Engine) — the pre-shipment
+// evidence that advertised = charged.
+model PaypalOrder {
+  id           String   @id @default(cuid())
+  orderId      String
+  runId        String
+  run          AuditRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  purpose      String   @default("CLAIM_VERIFICATION") // CLAIM_VERIFICATION | SEAT_SUBSCRIPTION
+  environment  String   @default("SIMULATION") // SANDBOX | LIVE | SIMULATION
+  status       String   @default("CREATED")
+  amountValue  String   @default("0.00")
+  currencyCode String   @default("USD")
+  itemSku      String?
+  breakdown    String   @default("{}") // JSON — full API response snapshot
+  createdAt    DateTime @default(now())
+
+  @@unique([runId, orderId])
 }
 
 model Finding {
