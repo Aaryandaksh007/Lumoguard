@@ -8,6 +8,7 @@ export type Pillar =
   | "TERMINOLOGY"
   | "VOICE"
   | "FACT_CLAIM"
+  | "TRANSACTION_INTEGRITY"
   | "VISUAL_GEOMETRY"
   | "ACCESSIBILITY_WCAG"
   | "CONFIDENTIALITY";
@@ -36,7 +37,8 @@ export interface Provenance {
     | "DETERMINISTIC_ENGINE_LOCAL"
     | "EXTERNAL_AI_SERVICE"
     | "MINICHECK_ENTAILMENT_LOCAL"
-    | "MICROSOFT_PRESIDIO_REVERSIBLE_PROXY";
+    | "MICROSOFT_PRESIDIO_REVERSIBLE_PROXY"
+    | "PAYPAL_ORDERS_API_V2";
   algorithm: string;
   citation?: string;
   latencyMs: number;
@@ -48,6 +50,16 @@ export interface Provenance {
   // Confidentiality shield audit proof
   sanitizedPayloadPreview?: string;
   airGappedMode?: boolean;
+  // PayPal Orders API v2 verification proof
+  paypal?: {
+    orderId: string;
+    environment: "SANDBOX" | "LIVE" | "SIMULATION";
+    intent: string;
+    advertised: { amount: string; currency: string };
+    charged: { amount: string; currency: string };
+    sku?: string;
+    status: string;
+  };
 }
 
 export interface DiffChunk {
@@ -159,16 +171,33 @@ export interface AuditSummary {
   findingsBySeverity: Record<string, number>;
   scrubbedContent: string;
   tokenMap: Record<string, string>;
+  paypalStatus?: string;
+  paypalLatencyMs?: number;
 }
 
 export interface AuditResult extends AuditSummary {
   findings: RawFinding[];
+  paypalOrders?: PaypalOrderRecord[];
+}
+
+/** A PayPal order created during verification or billing (Orders API v2). */
+export interface PaypalOrderRecord {
+  orderId: string;
+  purpose: "CLAIM_VERIFICATION" | "SEAT_SUBSCRIPTION";
+  environment: "SANDBOX" | "LIVE" | "SIMULATION";
+  status: string;
+  amountValue: string;
+  currencyCode: string;
+  itemSku?: string | null;
+  assetId?: string | null;
+  breakdown: Record<string, unknown>;
 }
 
 export const PILLAR_LABELS: Record<Pillar, string> = {
   TERMINOLOGY: "Terminology & Lexicon",
   VOICE: "Tone, Voice & Messaging",
   FACT_CLAIM: "Fact & Claim Substantiation",
+  TRANSACTION_INTEGRITY: "Transaction Integrity (PayPal)",
   VISUAL_GEOMETRY: "Visual Geometry & Palette",
   ACCESSIBILITY_WCAG: "Accessibility (WCAG 2.2)",
   CONFIDENTIALITY: "Confidentiality Protection",
