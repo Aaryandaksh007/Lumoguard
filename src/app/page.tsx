@@ -1,5 +1,5 @@
-import { LoomGuardApp } from "@/components/loomguard/LoomGuardApp";
+import { FilmExperience } from "@/components/cinema/FilmExperience";
 
 export default function Home() {
-  return <LoomGuardApp />;
+  return <FilmExperience />;
 }

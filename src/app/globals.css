@@ -120,3 +120,307 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ════════════════════════════════════════════════════════════
+   THE FILM — LoomGuard cinematic layer
+   ════════════════════════════════════════════════════════════ */
+
+@theme {
+  --color-film-ink: #07070a;
+  --color-film-ink-2: #0d0d13;
+  --color-film-ivory: #ece7db;
+  --color-thread-gold: #e0aa4f;
+  --color-thread-crimson: #ff5257;
+  --color-thread-violet: #b79cff;
+  --color-thread-emerald: #34d399;
+  --ease-out-x: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-x: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+@theme inline {
+  --font-display: var(--font-fraunces);
+}
+
+/* Film-mode chrome: dark scrollbar + smooth tick navigation */
+html.film-active {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+html.film-active::-webkit-scrollbar {
+  width: 10px;
+}
+html.film-active::-webkit-scrollbar-track {
+  background: #07070a;
+}
+html.film-active::-webkit-scrollbar-thumb {
+  background: #26262e;
+  border-radius: 8px;
+  border: 2px solid #07070a;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.film-active {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Film grain (steps for that photochemical flicker) ── */
+.film-grain {
+  position: fixed;
+  inset: -100%;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 0.9s steps(2) infinite;
+}
+@keyframes grain-shift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-1.5%, 1%, 0);
+  }
+  100% {
+    transform: translate3d(1%, -1.5%, 0);
+  }
+}
+
+/* ── Glitch: the moment a thread snaps ── */
+@keyframes glitch-shake {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  20% {
+    transform: translate3d(-7px, 3px, 0);
+  }
+  40% {
+    transform: translate3d(5px, -4px, 0);
+  }
+  60% {
+    transform: translate3d(-4px, 2px, 0);
+  }
+  80% {
+    transform: translate3d(6px, 3px, 0);
+  }
+}
+.glitching {
+  animation: glitch-shake 0.34s steps(3) 2;
+}
+.glitch-word {
+  text-shadow:
+    -2px 0 rgba(255, 82, 87, 0.85),
+    2px 0 rgba(183, 156, 255, 0.7);
+}
+
+/* ── Pipeline flow dots ── */
+@keyframes flow-x {
+  0% {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(calc(100% + 10px));
+    opacity: 0;
+  }
+}
+@keyframes flow-y {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(100% + 10px));
+    opacity: 0;
+  }
+}
+.flow-dot {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--color-thread-gold);
+  box-shadow: 0 0 8px 1px rgba(224, 170, 79, 0.8);
+  animation: flow-x 2.4s linear infinite;
+}
+.flow-dot-v {
+  left: 50%;
+  top: 0;
+  margin-top: 0;
+  margin-left: -2px;
+  animation: flow-y 2.4s linear infinite;
+}
+.flow-dot:nth-child(2) {
+  animation-delay: 0.8s;
+}
+.flow-dot:nth-child(3) {
+  animation-delay: 1.6s;
+}
+.flow-dot-violet {
+  background: var(--color-thread-violet);
+  box-shadow: 0 0 8px 1px rgba(183, 156, 255, 0.8);
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow-dot {
+    display: none;
+  }
+  .film-grain {
+    animation: none;
+  }
+  .glitching {
+    animation: none;
+  }
+}
+
+/* ── Scroll cue line ── */
+@keyframes cue-drop {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+.cue-line {
+  animation: cue-drop 2.2s var(--ease-in-out-x) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cue-line {
+    animation: none;
+    transform: scaleY(1);
+  }
+}
+
+/* ── Live ping dot ── */
+@keyframes soft-ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55);
+  }
+  80% {
+    box-shadow: 0 0 0 9px rgba(52, 211, 153, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+  }
+}
+.ping-dot {
+  animation: soft-ping 2s var(--ease-out-x) infinite;
+}
+
+/* ── Gold text gradient for hero accents ── */
+.text-gold-grad {
+  background: linear-gradient(105deg, #f3d492 0%, #e0aa4f 45%, #9a6b21 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Crimson veil used by the incident scene ── */
+.crimson-veil {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 82, 87, 0) 40%,
+    rgba(255, 82, 87, 0.16) 100%
+  );
+}
+
+/* ── Preloader letterbox bars ── */
+.pre-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 50.5%;
+  background: #050507;
+  z-index: 100;
+  transition: transform 0.85s var(--ease-in-out-x);
+}
+.pre-bar.top {
+  top: 0;
+}
+.pre-bar.bottom {
+  bottom: 0;
+}
+.pre-bar.top.open {
+  transform: translateY(-102%);
+}
+.pre-bar.bottom.open {
+  transform: translateY(102%);
+}
+
+/* ── Film ↔ product wipe bars ── */
+.wipe-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 50.5%;
+  background: #050507;
+  z-index: 90;
+  pointer-events: none;
+  transition: transform 0.68s var(--ease-in-out-x);
+}
+.wipe-bar.top {
+  top: 0;
+  transform: translateY(-102%);
+}
+.wipe-bar.bottom {
+  bottom: 0;
+  transform: translateY(102%);
+}
+.wipe-bar.wipe-closed {
+  transform: translateY(0);
+}
+
+/* ── HUD chapter ticks (built by the director) ── */
+.hud-ticks button {
+  position: absolute;
+  top: -2px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 9999px;
+  background: rgba(236, 231, 219, 0.35);
+  cursor: pointer;
+  pointer-events: auto;
+  padding: 0;
+  border: none;
+  transition:
+    background 0.3s var(--ease-out-x),
+    transform 0.3s var(--ease-out-x);
+}
+.hud-ticks button:hover,
+.hud-ticks button:focus-visible {
+  background: var(--color-thread-gold);
+  transform: scale(2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pre-bar,
+  .wipe-bar {
+    transition-duration: 0.01s;
+  }
+}
