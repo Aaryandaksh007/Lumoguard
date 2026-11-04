@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// LAYER 1: The Living Brand Canon & Fact Ledger
+// ============================================================
+
+model CanonTerm {
+  id                  String   @id @default(cuid())
+  termId              String   @unique
+  surfaceForm         String
+  ruleType            String // FORBIDDEN | DEPRECATED | PREFERRED | CASE_SENSITIVE
+  replacementToken    String?
+  allowedContextRegex String?
+  rationaleCitation   String
+  createdAt           DateTime @default(now())
+}
+
+model CanonVoice {
+  id                 String  @id @default(cuid())
+  voiceId            String  @unique
+  personaName        String
+  fleschKincaidMin   Float   @default(7.0)
+  fleschKincaidMax   Float   @default(13.0)
+  passiveVoiceMaxPct Float   @default(15.0)
+  approvedSamples    String  @default("[]") // JSON string[]
+  forbiddenCliches   String  @default("[]") // JSON string[]
+}
+
+model CanonFact {
+  id                     String   @id @default(cuid())
+  factId                 String   @unique
+  claimAssertion         String
+  atomicBreakdown        String   @default("[]") // JSON string[]
+  status                 String // CANONICAL | SUPERSEDED | ROADMAP_ASPIRATIONAL
+  effectiveDate          String?
+  expirationDate         String?
+  evidenceDocUrl         String?
+  requiredDisclaimerText String?
+  supersededByFactId     String?
+  createdAt              DateTime @default(now())
+}
+
+model CanonVisual {
+  id          String  @id @default(cuid())
+  tokenName   String  @unique
+  hexValue    String
+  role        String // PRIMARY | ACCENT | SURFACE | TEXT
+  isBrandCore Boolean @default(true)
+}
+
+model CanonLogo {
+  id              String @id @default(cuid())
+  logoId          String @unique
+  assetName       String
+  canonicalWidth  Float
+  canonicalHeight Float
+  aspectRatio     Float
+  clearSpaceRatio Float  @default(0.25)
+}
+
+model CanonSecret {
+  id        String   @id @default(cuid())
+  codename  String
+  createdAt DateTime @default(now())
+
+  @@unique([codename])
+}
+
+// ============================================================
+// LAYER 4: Assets, Audits, Findings & RBAC Workflow
+// ============================================================
+
+model Asset {
+  id           String     @id @default(cuid())
+  title        String
+  assetType    String     @default("MARKDOWN") // MARKDOWN | HTML | BANNER_IMAGE
+  content      String     @default("")
+  visualMeta   String? // JSON: extracted colors, color pairs, logo box
+  status       String     @default("DRAFT") // DRAFT | PREFLIGHT_CHECKED | IN_REVIEW | CHANGES_REQUESTED | APPROVED_FOR_PUBLISH
+  assigneeRole String? // BRAND_MANAGER | LEGAL_COMPLIANCE queue routing
+  ownerRole    String     @default("CREATOR")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  runs         AuditRun[]
+}
+
+model AuditRun {
+  id                 String    @id @default(cuid())
+  runId              String    @unique
+  assetId            String
+  asset              Asset     @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  scrubbedContent    String?
+  tokenMap           String    @default("{}") // JSON record<string,string>
+  readinessScore     Float     @default(100)
+  stage1LatencyMs    Float     @default(0)
+  stage2LatencyMs    Float     @default(0)
+  totalLatencyMs     Float     @default(0)
+  llmStatus          String    @default("SKIPPED") // OK | DEGRADED | FAILED | AIR_GAPPED
+  llmModel           String?
+  promptVersion      String?
+  findingsByPillar   String    @default("{}") // JSON
+  findingsBySeverity String    @default("{}") // JSON
+  createdAt          DateTime  @default(now())
+  findings           Finding[]
+}
+
+model Finding {
+  id                 String         @id @default(cuid())
+  findingId          String         @unique
+  runId              String
+  run                AuditRun       @relation(fields: [runId], references: [id], onDelete: Cascade)
+  pillar             String // TERMINOLOGY | VOICE | FACT_CLAIM | VISUAL_GEOMETRY | ACCESSIBILITY_WCAG | CONFIDENTIALITY
+  ruleId             String
+  severity           String // CRITICAL | HIGH | MEDIUM | LOW | INFO
+  verdict            String?
+  originalSpan       String
+  charStart          Int            @default(-1)
+  charEnd            Int            @default(-1)
+  suggestedDiff      String?
+  explanation        String
+  provenance         String         @default("{}") // JSON Context Trace
+  status             String         @default("PENDING") // PENDING | ACCEPTED | OVERRIDDEN
+  intentPreservation Float          @default(1.0)
+  createdAt          DateTime       @default(now())
+  actions            ReviewAction[]
+}
+
+model ReviewAction {
+  id             String   @id @default(cuid())
+  actionId       String   @unique
+  findingId      String
+  finding        Finding  @relation(fields: [findingId], references: [id], onDelete: Cascade)
+  action         String // ACCEPT | OVERRIDE
+  actorRole      String // CREATOR | BRAND_MANAGER | LEGAL_COMPLIANCE | GOVERNANCE_ADMIN
+  overrideReason String? // INTENTIONAL_STYLE | UNCLEAR_GUIDELINE | APPROVED_EXCEPTION
+  comment        String?
+  createdAt      DateTime @default(now())
+}
+
+model GuidelineTelemetry {
+  id                  String   @id @default(cuid())
+  ruleId              String   @unique
+  ruleName            String
+  pillar              String
+  triggersCount       Int      @default(0)
+  overridesCount      Int      @default(0)
+  disputesCount       Int      @default(0)
+  meanResolutionHours Float    @default(0)
+  gasScore            Float    @default(0)
+  classification      String   @default("HABITUAL_MISTAKE")
+  updatedAt           DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  actor     String
+  details   String   @default("{}") // JSON
+  createdAt DateTime @default(now())
+}
