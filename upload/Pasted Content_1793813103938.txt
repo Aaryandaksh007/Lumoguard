@@ -1,0 +1,997 @@
+## Error Type
+Console Error
+
+## Error Message
+A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+      <RedirectBoundary>
+        <RedirectErrorBoundary router={{...}}>
+          <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:<Fragment>, ...}} segmentPath={[...]} ...>
+            <SegmentViewNode type="page" pagePath="page.tsx">
+              <SegmentTrieNode>
+              <Home>
+                <FilmExperience>
+                  <div className="relative f...">
+                    <ThreadCanvas>
+                    <div>
+                    <Preloader>
+                    <header>
+                    <footer>
+                    <main className="relative z...">
+                      <HeroScene>
+                        <Scene act="OVERTURE —..." weave={0.3} energy={0.65} className="relative f...">
+                          <section ref={undefined} id={undefined} data-scene={true} data-act="OVERTURE —..." ...>
+                            <div>
+                            <div className="relative z...">
+                              <motion.div style={undefined}>
+                                <div
+                                  style={{
+-                                   transform: "translate3d(0px, 0px, 0px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                                  <Reveal>
+                                    <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                      <div
+                                        className={undefined}
+                                        style={{
++                                         opacity: 0
+-                                         opacity: "0"
++                                         transform: "none"
+-                                         transform: "translateY(26px)"
+                                        }}
+                                        ref={function useMotionRef.useCallback}
+                                      >
+                                  <h1 className="mt-7 font-...">
+                                    ...
+                                      <span aria-hidden="true">
+                                        ...
+                                          <span className="inline-blo..." style={{}} ...>
+                                            <motion.span className="inline-blo..." variants={{...}}>
+                                              <span
+                                                className="inline-block will-change-transform"
+                                                style={{
++                                                 transform: "none"
+-                                                 transform: "translateY(112%)"
+                                                }}
+                                                ref={function useMotionRef.useCallback}
+                                              >
+                                        ...
+                                          <span className="inline-blo..." style={{}} ...>
+                                            <motion.span className="inline-blo..." variants={{...}}>
+                                              <span
+                                                className="inline-block will-change-transform"
+                                                style={{
++                                                 transform: "none"
+-                                                 transform: "translateY(112%)"
+                                                }}
+                                                ref={function useMotionRef.useCallback}
+                                              >
+                                        ...
+                                          <span className="inline-blo..." style={{}} ...>
+                                            <motion.span className="inline-blo..." variants={{...}}>
+                                              <span
+                                                className="inline-block will-change-transform"
+                                                style={{
++                                                 transform: "none"
+-                                                 transform: "translateY(112%)"
+                                                }}
+                                                ref={function useMotionRef.useCallback}
+                                              >
+                                        ...
+                                          <span className="inline-blo..." style={{}} ...>
+                                            <motion.span className="inline-blo..." variants={{...}}>
+                                              <span
+                                                className="inline-block will-change-transform"
+                                                style={{
++                                                 transform: "none"
+-                                                 transform: "translateY(112%)"
+                                                }}
+                                                ref={function useMotionRef.useCallback}
+                                              >
+                                        ...
+                                          <span className="inline-blo..." style={{}} ...>
+                                            <motion.span className="inline-blo..." variants={{...}}>
+                                              <span
+                                                className="inline-block will-change-transform"
+                                                style={{
++                                                 transform: "none"
+-                                                 transform: "translateY(112%)"
+                                                }}
+                                                ref={function useMotionRef.useCallback}
+                                              >
+                                    <br>
+                                    ...
+                                      <span aria-hidden="true">
+                                        ...
+                                          <span className="inline-blo..." style={{}} ...>
+                                            <motion.span className="inline-blo..." variants={{...}}>
+                                              <span
+                                                className="inline-block will-change-transform text-gold-grad"
+                                                style={{
++                                                 transform: "none"
+-                                                 transform: "translateY(112%)"
+                                                }}
+                                                ref={function useMotionRef.useCallback}
+                                              >
+                                        ...
+                                          <span className="inline-blo..." style={{}} ...>
+                                            <motion.span className="inline-blo..." variants={{...}}>
+                                              <span
+                                                className="inline-block will-change-transform text-gold-grad"
+                                                style={{
++                                                 transform: "none"
+-                                                 transform: "translateY(112%)"
+                                                }}
+                                                ref={function useMotionRef.useCallback}
+                                              >
+                                        ...
+                                          <span className="inline-blo..." style={{}} ...>
+                                            <motion.span className="inline-blo..." variants={{...}}>
+                                              <span
+                                                className="inline-block will-change-transform text-gold-grad"
+                                                style={{
++                                                 transform: "none"
+-                                                 transform: "translateY(112%)"
+                                                }}
+                                                ref={function useMotionRef.useCallback}
+                                              >
+                                        ...
+                                          <span className="inline-blo..." style={{}} ...>
+                                            <motion.span className="inline-blo..." variants={{...}}>
+                                              <span
+                                                className="inline-block will-change-transform text-gold-grad"
+                                                style={{
++                                                 transform: "none"
+-                                                 transform: "translateY(112%)"
+                                                }}
+                                                ref={function useMotionRef.useCallback}
+                                              >
+                                        ...
+                                          <span className="inline-blo..." style={{}} ...>
+                                            <motion.span className="inline-blo..." variants={{...}}>
+                                              <span
+                                                className="inline-block will-change-transform text-gold-grad"
+                                                style={{
++                                                 transform: "none"
+-                                                 transform: "translateY(112%)"
+                                                }}
+                                                ref={function useMotionRef.useCallback}
+                                              >
+                              <motion.div style={undefined}>
+                                <div
+                                  style={{
+-                                   transform: "translate3d(0px, 0px, 0px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                                  <Reveal delay={0.95}>
+                                    <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                      <div
+                                        className={undefined}
+                                        style={{
++                                         opacity: 0
+-                                         opacity: "0"
++                                         transform: "none"
+-                                         transform: "translateY(26px)"
+                                        }}
+                                        ref={function useMotionRef.useCallback}
+                                      >
+                                  <Reveal delay={1.2}>
+                                    <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                      <div
+                                        className={undefined}
+                                        style={{
++                                         opacity: 0
+-                                         opacity: "0"
++                                         transform: "none"
+-                                         transform: "translateY(26px)"
+                                        }}
+                                        ref={function useMotionRef.useCallback}
+                                      >
+                            ...
+                      <Chapter numeral="I" act="ACT I — TH..." title="The Snappe..." line="23:47 · ON..." weave={0.2} ...>
+                        <section ref={{current:null}} data-scene={true} data-act="ACT I — TH..." data-weave={0.2} ...>
+                          <div className="sticky top...">
+                            <motion.div style={{opacity:{...}}} className="relative p...">
+                              <div
+                                className="relative px-6 text-center"
+                                style={{
++                                 opacity: 0
+-                                 opacity: "0"
+-                                 transform: "translate3d(0px, 70px, 0px) scale(0.965)"
+                                }}
+                                ref={function useMotionRef.useCallback}
+                              >
+                      <IncidentScene>
+                      ...
+                        <section ref={undefined} id={undefined} data-scene={true} data-act="ACT I — TH..." ...>
+                          <div className="mx-auto ma...">
+                            <Reveal>
+                              <motion.div className={undefined} initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+                                <div
+                                  className={undefined}
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                            <h2 className="mt-6 font-...">
+                              ...
+                                <span aria-hidden="true">
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                              <br>
+                              ...
+                                <span aria-hidden="true">
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                            <div className="mt-16 sm:m...">
+                              <Reveal delay={0}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.06}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.12}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.18}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              ...
+                      <Chapter numeral="II" act="ACT II — T..." title="The Loom" line="DETERMINIS..." weave={0.55} ...>
+                        <section ref={{current:null}} data-scene={true} data-act="ACT II — T..." data-weave={0.55} ...>
+                          <div className="sticky top...">
+                            <motion.div style={{opacity:{...}}} className="relative p...">
+                              <div
+                                className="relative px-6 text-center"
+                                style={{
++                                 opacity: 0
+-                                 opacity: "0"
+-                                 transform: "translate3d(0px, 70px, 0px) scale(0.965)"
+                                }}
+                                ref={function useMotionRef.useCallback}
+                              >
+                      ...
+                        <section ref={undefined} id={undefined} data-scene={true} data-act="ACT II — T..." ...>
+                          <div className="mx-auto ma...">
+                            <Reveal>
+                              <motion.div className={undefined} initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+                                <div
+                                  className={undefined}
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                            <div className="mt-10 spac...">
+                              <Reveal delay={0.05}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.1}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.15}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                            <Reveal delay={0.2} className="mt-20">
+                              <motion.div className="mt-20" initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+                                <div
+                                  className="mt-20"
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                                  ...
+                                    <span aria-hidden="true">
+                                      ...
+                                        <span className="inline-blo..." style={{}} ...>
+                                          <motion.span className="inline-blo..." variants={{...}}>
+                                            <span
+                                              className="inline-block will-change-transform"
+                                              style={{
++                                               transform: "none"
+-                                               transform: "translateY(112%)"
+                                              }}
+                                              ref={function useMotionRef.useCallback}
+                                            >
+                                      ...
+                                        <span className="inline-blo..." style={{}} ...>
+                                          <motion.span className="inline-blo..." variants={{...}}>
+                                            <span
+                                              className="inline-block will-change-transform"
+                                              style={{
++                                               transform: "none"
+-                                               transform: "translateY(112%)"
+                                              }}
+                                              ref={function useMotionRef.useCallback}
+                                            >
+                                      ...
+                                        <span className="inline-blo..." style={{}} ...>
+                                          <motion.span className="inline-blo..." variants={{...}}>
+                                            <span
+                                              className="inline-block will-change-transform"
+                                              style={{
++                                               transform: "none"
+-                                               transform: "translateY(112%)"
+                                              }}
+                                              ref={function useMotionRef.useCallback}
+                                            >
+                                      ...
+                                        <span className="inline-blo..." style={{}} ...>
+                                          <motion.span className="inline-blo..." variants={{...}}>
+                                            <span
+                                              className="inline-block will-change-transform"
+                                              style={{
++                                               transform: "none"
+-                                               transform: "translateY(112%)"
+                                              }}
+                                              ref={function useMotionRef.useCallback}
+                                            >
+                            <div className="mt-12 flex...">
+                              <FormulaChip tone="gold" title="DETERMINISTIC" lines={[...]} delay={0}>
+                                <Reveal delay={0} y={18}>
+                                  <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                    <div
+                                      className={undefined}
+                                      style={{
++                                       opacity: 0
+-                                       opacity: "0"
++                                       transform: "none"
+-                                       transform: "translateY(18px)"
+                                      }}
+                                      ref={function useMotionRef.useCallback}
+                                    >
+                              <span>
+                              <FormulaChip tone="violet" title="SEMANTIC" lines={[...]} delay={0.25}>
+                                <Reveal delay={0.25} y={18}>
+                                  <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                    <div
+                                      className={undefined}
+                                      style={{
++                                       opacity: 0
+-                                       opacity: "0"
++                                       transform: "none"
+-                                       transform: "translateY(18px)"
+                                      }}
+                                      ref={function useMotionRef.useCallback}
+                                    >
+                              <span>
+                              <FormulaChip tone="ivory" title="HUMAN" lines={[...]} delay={0.5}>
+                                <Reveal delay={0.5} y={18}>
+                                  <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                    <div
+                                      className={undefined}
+                                      style={{
++                                       opacity: 0
+-                                       opacity: "0"
++                                       transform: "none"
+-                                       transform: "translateY(18px)"
+                                      }}
+                                      ref={function useMotionRef.useCallback}
+                                    >
+                            <Reveal delay={0.3} className="mt-16 text...">
+                              <motion.div className="mt-16 text..." initial={{opacity:0, ...}} ...>
+                                <div
+                                  className="mt-16 text-center"
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                      <PipelineScene>
+                      <Chapter numeral="III" act="ACT III — ..." title="The Fabric..." line="SIX PILLAR..." weave={0.78} ...>
+                        <section ref={{current:null}} data-scene={true} data-act="ACT III — ..." data-weave={0.78} ...>
+                          <div className="sticky top...">
+                            <motion.div style={{opacity:{...}}} className="relative p...">
+                              <div
+                                className="relative px-6 text-center"
+                                style={{
++                                 opacity: 0
+-                                 opacity: "0"
+-                                 transform: "translate3d(0px, 70px, 0px) scale(0.965)"
+                                }}
+                                ref={function useMotionRef.useCallback}
+                              >
+                      ...
+                        <section ref={undefined} id={undefined} data-scene={true} data-act="ACT III — ..." ...>
+                          <div className="mx-auto ma...">
+                            <Reveal>
+                              <motion.div className={undefined} initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+                                <div
+                                  className={undefined}
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                            <h2 className="mt-6 max-w...">
+                              ...
+                                <span aria-hidden="true">
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                              ...
+                                <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                  <motion.span className="inline-blo..." variants={{...}}>
+                                    <span
+                                      className="inline-block will-change-transform text-gold-grad"
+                                      style={{
++                                       transform: "none"
+-                                       transform: "translateY(112%)"
+                                      }}
+                                      ref={function useMotionRef.useCallback}
+                                    >
+                            <div className="mt-14 grid...">
+                              <Reveal delay={0}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.07}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.14}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.21000000000000002}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.28}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.35000000000000003}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(26px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                      <DiffTheaterScene>
+                      ...
+                        <div className="grid gap-1...">
+                          <div>
+                            <Reveal>
+                              <motion.div className={undefined} initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+                                <div
+                                  className={undefined}
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                            <h3>
+                            <div className="relative m...">
+                              <div>
+                              <Reveal delay={0} y={16}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(16px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.1} y={16}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(16px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.2} y={16}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(16px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.30000000000000004} y={16}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(16px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.4} y={16}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(16px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                          <div>
+                            <Reveal>
+                              <motion.div className={undefined} initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+                                <div
+                                  className={undefined}
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                            <h3>
+                            <Reveal delay={0.15}>
+                              <motion.div className={undefined} initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+                                <div
+                                  className={undefined}
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                            <div className="mt-10 spac...">
+                              <Reveal delay={0.2} y={16}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(16px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.32} y={16}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(16px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                              <Reveal delay={0.44} y={16}>
+                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+                                  <div
+                                    className={undefined}
+                                    style={{
++                                     opacity: 0
+-                                     opacity: "0"
++                                     transform: "none"
+-                                     transform: "translateY(16px)"
+                                    }}
+                                    ref={function useMotionRef.useCallback}
+                                  >
+                      ...
+                        <section ref={undefined} id={undefined} data-scene={true} data-act="FINALE — T..." data-weave="1" ...>
+                          <div className="mx-auto ma...">
+                            <Reveal>
+                              <motion.div className={undefined} initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+                                <div
+                                  className={undefined}
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                            <h2 className="mt-7 font-...">
+                              ...
+                                <span aria-hidden="true">
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                              <br>
+                              ...
+                                <span aria-hidden="true">
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform text-gold-grad"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                                  ...
+                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+                                      <motion.span className="inline-blo..." variants={{...}}>
+                                        <span
+                                          className="inline-block will-change-transform text-gold-grad"
+                                          style={{
++                                           transform: "none"
+-                                           transform: "translateY(112%)"
+                                          }}
+                                          ref={function useMotionRef.useCallback}
+                                        >
+                            <Reveal delay={0.35}>
+                              <motion.div className={undefined} initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+                                <div
+                                  className={undefined}
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                            <Reveal delay={0.5}>
+                              <motion.div className={undefined} initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+                                <div
+                                  className={undefined}
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                            <Reveal delay={0.65}>
+                              <motion.div className={undefined} initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+                                <div
+                                  className={undefined}
+                                  style={{
++                                   opacity: 0
+-                                   opacity: "0"
++                                   transform: "none"
+-                                   transform: "translateY(26px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                    ...
+            ...
+          ...
+
+
+
+    at div (<anonymous>:null:null)
+    at Home (src/app/page.tsx:4:10)
+
+## Code Frame
+  2 |
+  3 | export default function Home() {
+> 4 |   return <FilmExperience />;
+    |          ^
+  5 | }
+  6 |
+
+Next.js version: 16.1.3 (Turbopack)

@@ -1,0 +1,402 @@
+     1→     1→## Error Type
+     2→     2→Console Error
+     3→     3→
+     4→     4→## Error Message
+     5→     5→A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+     6→     6→
+     7→     7→- A server/client branch `if (typeof window !== 'undefined')`.
+     8→     8→- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+     9→     9→- Date formatting in a user's locale which doesn't match the server.
+    10→    10→- External changing data without sending a snapshot of it along with the HTML.
+    11→    11→- Invalid HTML tag nesting.
+    12→    12→
+    13→    13→It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+    14→    14→
+    15→    15→https://react.dev/link/hydration-mismatch
+    16→    16→
+    17→    17→  ...
+    18→    18→    <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+    19→    19→      <RedirectBoundary>
+    20→    20→        <RedirectErrorBoundary router={{...}}>
+    21→    21→          <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:<Fragment>, ...}} segmentPath={[...]} ...>
+    22→    22→            <SegmentViewNode type="page" pagePath="page.tsx">
+    23→    23→              <SegmentTrieNode>
+    24→    24→              <Home>
+    25→    25→                <FilmExperience>
+    26→    26→                  <div className="relative f...">
+    27→    27→                    <ThreadCanvas>
+    28→    28→                    <div>
+    29→    29→                    <Preloader>
+    30→    30→                    <header>
+    31→    31→                    <footer>
+    32→    32→                    <main className="relative z...">
+    33→    33→                      <HeroScene>
+    34→    34→                        <Scene act="OVERTURE —..." weave={0.3} energy={0.65} className="relative f...">
+    35→    35→                          <section ref={undefined} id={undefined} data-scene={true} data-act="OVERTURE —..." ...>
+    36→    36→                            <div>
+    37→    37→                            <div className="relative z...">
+    38→    38→                              <motion.div style={undefined}>
+    39→    39→                                <div
+    40→    40→                                  style={{
+    41→    41→-                                   transform: "translate3d(0px, 0px, 0px)"
+    42→    42→                                  }}
+    43→    43→                                  ref={function useMotionRef.useCallback}
+    44→    44→                                >
+    45→    45→                                  <Reveal>
+    46→    46→                                    <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+    47→    47→                                      <div
+    48→    48→                                        className={undefined}
+    49→    49→                                        style={{
+    50→    50→+                                         opacity: 0
+    51→    51→-                                         opacity: "0"
+    52→    52→+                                         transform: "none"
+    53→    53→-                                         transform: "translateY(26px)"
+    54→    54→                                        }}
+    55→    55→                                        ref={function useMotionRef.useCallback}
+    56→    56→                                      >
+    57→    57→                                  <h1 className="mt-7 font-...">
+    58→    58→                                    ...
+    59→    59→                                      <span aria-hidden="true">
+    60→    60→                                        ...
+    61→    61→                                          <span className="inline-blo..." style={{}} ...>
+    62→    62→                                            <motion.span className="inline-blo..." variants={{...}}>
+    63→    63→                                              <span
+    64→    64→                                                className="inline-block will-change-transform"
+    65→    65→                                                style={{
+    66→    66→+                                                 transform: "none"
+    67→    67→-                                                 transform: "translateY(112%)"
+    68→    68→                                                }}
+    69→    69→                                                ref={function useMotionRef.useCallback}
+    70→    70→                                              >
+    71→    71→                                        ...
+    72→    72→                                          <span className="inline-blo..." style={{}} ...>
+    73→    73→                                            <motion.span className="inline-blo..." variants={{...}}>
+    74→    74→                                              <span
+    75→    75→                                                className="inline-block will-change-transform"
+    76→    76→                                                style={{
+    77→    77→+                                                 transform: "none"
+    78→    78→-                                                 transform: "translateY(112%)"
+    79→    79→                                                }}
+    80→    80→                                                ref={function useMotionRef.useCallback}
+    81→    81→                                              >
+    82→    82→                                        ...
+    83→    83→                                          <span className="inline-blo..." style={{}} ...>
+    84→    84→                                            <motion.span className="inline-blo..." variants={{...}}>
+    85→    85→                                              <span
+    86→    86→                                                className="inline-block will-change-transform"
+    87→    87→                                                style={{
+    88→    88→+                                                 transform: "none"
+    89→    89→-                                                 transform: "translateY(112%)"
+    90→    90→                                                }}
+    91→    91→                                                ref={function useMotionRef.useCallback}
+    92→    92→                                              >
+    93→    93→                                        ...
+    94→    94→                                          <span className="inline-blo..." style={{}} ...>
+    95→    95→                                            <motion.span className="inline-blo..." variants={{...}}>
+    96→    96→                                              <span
+    97→    97→                                                className="inline-block will-change-transform"
+    98→    98→                                                style={{
+    99→    99→+                                                 transform: "none"
+   100→   100→-                                                 transform: "translateY(112%)"
+   101→   101→                                                }}
+   102→   102→                                                ref={function useMotionRef.useCallback}
+   103→   103→                                              >
+   104→   104→                                        ...
+   105→   105→                                          <span className="inline-blo..." style={{}} ...>
+   106→   106→                                            <motion.span className="inline-blo..." variants={{...}}>
+   107→   107→                                              <span
+   108→   108→                                                className="inline-block will-change-transform"
+   109→   109→                                                style={{
+   110→   110→+                                                 transform: "none"
+   111→   111→-                                                 transform: "translateY(112%)"
+   112→   112→                                                }}
+   113→   113→                                                ref={function useMotionRef.useCallback}
+   114→   114→                                              >
+   115→   115→                                    <br>
+   116→   116→                                    ...
+   117→   117→                                      <span aria-hidden="true">
+   118→   118→                                        ...
+   119→   119→                                          <span className="inline-blo..." style={{}} ...>
+   120→   120→                                            <motion.span className="inline-blo..." variants={{...}}>
+   121→   121→                                              <span
+   122→   122→                                                className="inline-block will-change-transform text-gold-grad"
+   123→   123→                                                style={{
+   124→   124→+                                                 transform: "none"
+   125→   125→-                                                 transform: "translateY(112%)"
+   126→   126→                                                }}
+   127→   127→                                                ref={function useMotionRef.useCallback}
+   128→   128→                                              >
+   129→   129→                                        ...
+   130→   130→                                          <span className="inline-blo..." style={{}} ...>
+   131→   131→                                            <motion.span className="inline-blo..." variants={{...}}>
+   132→   132→                                              <span
+   133→   133→                                                className="inline-block will-change-transform text-gold-grad"
+   134→   134→                                                style={{
+   135→   135→+                                                 transform: "none"
+   136→   136→-                                                 transform: "translateY(112%)"
+   137→   137→                                                }}
+   138→   138→                                                ref={function useMotionRef.useCallback}
+   139→   139→                                              >
+   140→   140→                                        ...
+   141→   141→                                          <span className="inline-blo..." style={{}} ...>
+   142→   142→                                            <motion.span className="inline-blo..." variants={{...}}>
+   143→   143→                                              <span
+   144→   144→                                                className="inline-block will-change-transform text-gold-grad"
+   145→   145→                                                style={{
+   146→   146→+                                                 transform: "none"
+   147→   147→-                                                 transform: "translateY(112%)"
+   148→   148→                                                }}
+   149→   149→                                                ref={function useMotionRef.useCallback}
+   150→   150→                                              >
+   151→   151→                                        ...
+   152→   152→                                          <span className="inline-blo..." style={{}} ...>
+   153→   153→                                            <motion.span className="inline-blo..." variants={{...}}>
+   154→   154→                                              <span
+   155→   155→                                                className="inline-block will-change-transform text-gold-grad"
+   156→   156→                                                style={{
+   157→   157→+                                                 transform: "none"
+   158→   158→-                                                 transform: "translateY(112%)"
+   159→   159→                                                }}
+   160→   160→                                                ref={function useMotionRef.useCallback}
+   161→   161→                                              >
+   162→   162→                                        ...
+   163→   163→                                          <span className="inline-blo..." style={{}} ...>
+   164→   164→                                            <motion.span className="inline-blo..." variants={{...}}>
+   165→   165→                                              <span
+   166→   166→                                                className="inline-block will-change-transform text-gold-grad"
+   167→   167→                                                style={{
+   168→   168→+                                                 transform: "none"
+   169→   169→-                                                 transform: "translateY(112%)"
+   170→   170→                                                }}
+   171→   171→                                                ref={function useMotionRef.useCallback}
+   172→   172→                                              >
+   173→   173→                              <motion.div style={undefined}>
+   174→   174→                                <div
+   175→   175→                                  style={{
+   176→   176→-                                   transform: "translate3d(0px, 0px, 0px)"
+   177→   177→                                  }}
+   178→   178→                                  ref={function useMotionRef.useCallback}
+   179→   179→                                >
+   180→   180→                                  <Reveal delay={0.95}>
+   181→   181→                                    <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+   182→   182→                                      <div
+   183→   183→                                        className={undefined}
+   184→   184→                                        style={{
+   185→   185→+                                         opacity: 0
+   186→   186→-                                         opacity: "0"
+   187→   187→+                                         transform: "none"
+   188→   188→-                                         transform: "translateY(26px)"
+   189→   189→                                        }}
+   190→   190→                                        ref={function useMotionRef.useCallback}
+   191→   191→                                      >
+   192→   192→                                  <Reveal delay={1.2}>
+   193→   193→                                    <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+   194→   194→                                      <div
+   195→   195→                                        className={undefined}
+   196→   196→                                        style={{
+   197→   197→+                                         opacity: 0
+   198→   198→-                                         opacity: "0"
+   199→   199→+                                         transform: "none"
+   200→   200→-                                         transform: "translateY(26px)"
+   201→   201→                                        }}
+   202→   202→                                        ref={function useMotionRef.useCallback}
+   203→   203→                                      >
+   204→   204→                            ...
+   205→   205→                      <Chapter numeral="I" act="ACT I — TH..." title="The Snappe..." line="23:47 · ON..." weave={0.2} ...>
+   206→   206→                        <section ref={{current:null}} data-scene={true} data-act="ACT I — TH..." data-weave={0.2} ...>
+   207→   207→                          <div className="sticky top...">
+   208→   208→                            <motion.div style={{opacity:{...}}} className="relative p...">
+   209→   209→                              <div
+   210→   210→                                className="relative px-6 text-center"
+   211→   211→                                style={{
+   212→   212→+                                 opacity: 0
+   213→   213→-                                 opacity: "0"
+   214→   214→-                                 transform: "translate3d(0px, 70px, 0px) scale(0.965)"
+   215→   215→                                }}
+   216→   216→                                ref={function useMotionRef.useCallback}
+   217→   217→                              >
+   218→   218→                      <IncidentScene>
+   219→   219→                      ...
+   220→   220→                        <section ref={undefined} id={undefined} data-scene={true} data-act="ACT I — TH..." ...>
+   221→   221→                          <div className="mx-auto ma...">
+   222→   222→                            <Reveal>
+   223→   223→                              <motion.div className={undefined} initial={{opacity:0, ...}} whileInView={{opacity:1, ...}} ...>
+   224→   224→                                <div
+   225→   225→                                  className={undefined}
+   226→   226→                                  style={{
+   227→   227→+                                   opacity: 0
+   228→   228→-                                   opacity: "0"
+   229→   229→+                                   transform: "none"
+   230→   230→-                                   transform: "translateY(26px)"
+   231→   231→                                  }}
+   232→   232→                                  ref={function useMotionRef.useCallback}
+   233→   233→                                >
+   234→   234→                            <h2 className="mt-6 font-...">
+   235→   235→                              ...
+   236→   236→                                <span aria-hidden="true">
+   237→   237→                                  ...
+   238→   238→                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+   239→   239→                                      <motion.span className="inline-blo..." variants={{...}}>
+   240→   240→                                        <span
+   241→   241→                                          className="inline-block will-change-transform"
+   242→   242→                                          style={{
+   243→   243→+                                           transform: "none"
+   244→   244→-                                           transform: "translateY(112%)"
+   245→   245→                                          }}
+   246→   246→                                          ref={function useMotionRef.useCallback}
+   247→   247→                                        >
+   248→   248→                                  ...
+   249→   249→                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+   250→   250→                                      <motion.span className="inline-blo..." variants={{...}}>
+   251→   251→                                        <span
+   252→   252→                                          className="inline-block will-change-transform"
+   253→   253→                                          style={{
+   254→   254→+                                           transform: "none"
+   255→   255→-                                           transform: "translateY(112%)"
+   256→   256→                                          }}
+   257→   257→                                          ref={function useMotionRef.useCallback}
+   258→   258→                                        >
+   259→   259→                                  ...
+   260→   260→                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+   261→   261→                                      <motion.span className="inline-blo..." variants={{...}}>
+   262→   262→                                        <span
+   263→   263→                                          className="inline-block will-change-transform"
+   264→   264→                                          style={{
+   265→   265→+                                           transform: "none"
+   266→   266→-                                           transform: "translateY(112%)"
+   267→   267→                                          }}
+   268→   268→                                          ref={function useMotionRef.useCallback}
+   269→   269→                                        >
+   270→   270→                                  ...
+   271→   271→                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+   272→   272→                                      <motion.span className="inline-blo..." variants={{...}}>
+   273→   273→                                        <span
+   274→   274→                                          className="inline-block will-change-transform"
+   275→   275→                                          style={{
+   276→   276→+                                           transform: "none"
+   277→   277→-                                           transform: "translateY(112%)"
+   278→   278→                                          }}
+   279→   279→                                          ref={function useMotionRef.useCallback}
+   280→   280→                                        >
+   281→   281→                              <br>
+   282→   282→                              ...
+   283→   283→                                <span aria-hidden="true">
+   284→   284→                                  ...
+   285→   285→                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+   286→   286→                                      <motion.span className="inline-blo..." variants={{...}}>
+   287→   287→                                        <span
+   288→   288→                                          className="inline-block will-change-transform"
+   289→   289→                                          style={{
+   290→   290→+                                           transform: "none"
+   291→   291→-                                           transform: "translateY(112%)"
+   292→   292→                                          }}
+   293→   293→                                          ref={function useMotionRef.useCallback}
+   294→   294→                                        >
+   295→   295→                                  ...
+   296→   296→                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+   297→   297→                                      <motion.span className="inline-blo..." variants={{...}}>
+   298→   298→                                        <span
+   299→   299→                                          className="inline-block will-change-transform"
+   300→   300→                                          style={{
+   301→   301→+                                           transform: "none"
+   302→   302→-                                           transform: "translateY(112%)"
+   303→   303→                                          }}
+   304→   304→                                          ref={function useMotionRef.useCallback}
+   305→   305→                                        >
+   306→   306→                                  ...
+   307→   307→                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+   308→   308→                                      <motion.span className="inline-blo..." variants={{...}}>
+   309→   309→                                        <span
+   310→   310→                                          className="inline-block will-change-transform"
+   311→   311→                                          style={{
+   312→   312→+                                           transform: "none"
+   313→   313→-                                           transform: "translateY(112%)"
+   314→   314→                                          }}
+   315→   315→                                          ref={function useMotionRef.useCallback}
+   316→   316→                                        >
+   317→   317→                                  ...
+   318→   318→                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+   319→   319→                                      <motion.span className="inline-blo..." variants={{...}}>
+   320→   320→                                        <span
+   321→   321→                                          className="inline-block will-change-transform"
+   322→   322→                                          style={{
+   323→   323→+                                           transform: "none"
+   324→   324→-                                           transform: "translateY(112%)"
+   325→   325→                                          }}
+   326→   326→                                          ref={function useMotionRef.useCallback}
+   327→   327→                                        >
+   328→   328→                                  ...
+   329→   329→                                    <span className="inline-blo..." style={{}} ref={function useMotionRef.useCallback}>
+   330→   330→                                      <motion.span className="inline-blo..." variants={{...}}>
+   331→   331→                                        <span
+   332→   332→                                          className="inline-block will-change-transform"
+   333→   333→                                          style={{
+   334→   334→+                                           transform: "none"
+   335→   335→-                                           transform: "translateY(112%)"
+   336→   336→                                          }}
+   337→   337→                                          ref={function useMotionRef.useCallback}
+   338→   338→                                        >
+   339→   339→                            <div className="mt-16 sm:m...">
+   340→   340→                              <Reveal delay={0}>
+   341→   341→                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+   342→   342→                                  <div
+   343→   343→                                    className={undefined}
+   344→   344→                                    style={{
+   345→   345→+                                     opacity: 0
+   346→   346→-                                     opacity: "0"
+   347→   347→+                                     transform: "none"
+   348→   348→-                                     transform: "translateY(26px)"
+   349→   349→                                    }}
+   350→   350→                                    ref={function useMotionRef.useCallback}
+   351→   351→                                  >
+   352→   352→                              <Reveal delay={0.06}>
+   353→   353→                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+   354→   354→                                  <div
+   355→   355→                                    className={undefined}
+   356→   356→                                    style={{
+   357→   357→+                                     opacity: 0
+   358→   358→-                                     opacity: "0"
+   359→   359→+                                     transform: "none"
+   360→   360→-                                     transform: "translateY(26px)"
+   361→   361→                                    }}
+   362→   362→                                    ref={function useMotionRef.useCallback}
+   363→   363→                                  >
+   364→   364→                              <Reveal delay={0.12}>
+   365→   365→                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+   366→   366→                                  <div
+   367→   367→                                    className={undefined}
+   368→   368→                                    style={{
+   369→   369→+                                     opacity: 0
+   370→   370→-                                     opacity: "0"
+   371→   371→+                                     transform: "none"
+   372→   372→-                                     transform: "translateY(26px)"
+   373→   373→                                    }}
+   374→   374→                                    ref={function useMotionRef.useCallback}
+   375→   375→                                  >
+   376→   376→                              <Reveal delay={0.18}>
+   377→   377→                                <motion.div className={undefined} initial={{opacity:0, ...}} ...>
+   378→   378→                                  <div
+   379→   379→                                    className={undefined}
+   380→   380→                                    style={{
+   381→   381→+                                     opacity: 0
+   382→   382→-                                     opacity: "0"
+   383→   383→+                                     transform: "none"
+   384→   384→-                                     transform: "translateY(26px)"
+   385→   385→                                    }}
+   386→   386→                                    ref={function useMotionRef.useCallback}
+   387→   387→                                  >
+   388→   388→                              ...
+   389→   389→                      <Chapter numeral="II" act="ACT II — T..." title="The Loom" line="DETERMINIS..." weave={0.55} ...>
+   390→   390→                        <section ref={{current:null}} data-scene={true} data-act="ACT II — T..." data-weave={0.55} ...>
+   391→   391→                          <div className="sticky top...">
+   392→   392→                            <motion.div style={{opacity:{...}}} className="relative p...">
+   393→   393→                              <div
+   394→   394→                                className="relative px-6 text-center"
+   395→   395→                                style={{
+   396→   396→+                                 opacity: 0
+   397→   397→-                                 opacity: "0"
+   398→   398→-                                 transform: "translate3d(0px, 70px, 0px) scale(0.965)"
+   399→   399→                                }}
+   400→   400→                                ref={function useMotionRef.useCallback}
+
+[showing lines 1-400 of 998; use offset=401 with limit to continue reading]

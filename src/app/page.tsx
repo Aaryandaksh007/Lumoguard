@@ -1,5 +1,5 @@
-import { FilmExperience } from "@/components/cinema/FilmExperience";
+import { FilmClient } from "@/components/cinema/FilmClient";
 
 export default function Home() {
-  return <FilmExperience />;
+  return <FilmClient />;
 }

@@ -372,6 +372,23 @@ html.film-active::-webkit-scrollbar-thumb {
   transform: translateY(102%);
 }
 
+/* ── Reel shell — client-mount threading indicator (pure CSS) ── */
+.reel-thread {
+  transform-origin: left center;
+  animation: reel-thread-run 1.15s var(--ease-in-out-x) infinite;
+}
+@keyframes reel-thread-run {
+  0% {
+    transform: scaleX(0.02);
+  }
+  52% {
+    transform: scaleX(0.78);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
 /* ── Film ↔ product wipe bars ── */
 .wipe-bar {
   position: fixed;
@@ -422,5 +439,9 @@ html.film-active::-webkit-scrollbar-thumb {
   .pre-bar,
   .wipe-bar {
     transition-duration: 0.01s;
+  }
+  .reel-thread {
+    animation: none;
+    transform: scaleX(0.5);
   }
 }
