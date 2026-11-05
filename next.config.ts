@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   reactStrictMode: false,
+  /* hide the dev-tools dock button so screen recordings stay clean */
+  devIndicators: false,
 };
 
 export default nextConfig;

@@ -1,0 +1,64 @@
+{
+ "clips": [
+  {
+   "name": "D",
+   "t0": 1793856376.4106333,
+   "events": [
+    {
+     "event": "checkout_view OK",
+     "t": 0.44
+    },
+    {
+     "event": "trace_scroll SCROLLED",
+     "t": 21.54
+    },
+    {
+     "event": "trace_click OK @(1638,617)",
+     "t": 23.48
+    },
+    {
+     "event": "drawer_scroll1 OK",
+     "t": 26.64
+    },
+    {
+     "event": "drawer_scroll2 OK",
+     "t": 31.04
+    }
+   ]
+  },
+  {
+   "name": "E",
+   "t0": 1793856412.5134137,
+   "events": [
+    {
+     "event": "drawer_closed",
+     "t": 0.57
+    },
+    {
+     "event": "wf_tab True",
+     "t": 1.6
+    },
+    {
+     "event": "role_combo FAILED {'found': False}",
+     "t": 2.45
+    },
+    {
+     "event": "role_option FAILED {'found': False}",
+     "t": 3.64
+    },
+    {
+     "event": "approve_clicked True",
+     "t": 6.62
+    },
+    {
+     "event": "insights_tab True",
+     "t": 12.33
+    },
+    {
+     "event": "trail_tab True",
+     "t": 18.57
+    }
+   ]
+  }
+ ]
+}

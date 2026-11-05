@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "This is a cinematic \"overture\" landing screen for LOOMGUARD, with the headline \"Every brand is a fabric.\" and gold italic subhead \"One thread can unravel it.\" over a dark background of wavy thread-like lines. Supporting text describes \"A governance film in three acts,\" plus a stat line \"27 ASSETS PUBLISHED WORLDWIDE SINCE YOU ARRIVED,\" a \"SCROLL\" hint, a timeline with dots along the bottom, and a \"SKIP → PRODUCT\" link at bottom right. No mouse cursor is visible, and there are no rendering glitches or broken layout—the design is clean and polished.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1793857314,
+  "id": "202611051341505028a96246d3435e",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "202611051341505028a96246d3435e",
+  "usage": {
+    "completion_tokens": 131,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2746,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2877
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "This frame shows a dark, cinematic title card rather than an interactive UI: \"LOOMGUARD PICTURES\" in small gold letter-spaced caps, a large serif \"LoomGuard\" wordmark (white + gold), and the tagline \"The fabric of trust.\" beneath a thin gold divider. Near the bottom, small caption text reads \"TWO-STAGE DETERMINISTIC × AI VERIFICATION · PAYPAL ORDERS API V2 · 100% PROVENANCE\" and \"PRE-PUBLICATION BRAND GOVERNANCE.\" No mouse cursor is visible, and there are no rendering glitches or broken layout — the frame is cleanly composed with a thin gold border framing the slide.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1793857379,
+  "id": "202611051342569c99b44d3df64813",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "202611051342569c99b44d3df64813",
+  "usage": {
+    "completion_tokens": 143,
+    "completion_tokens_details": {
+      "reasoning_tokens": 142
+    },
+    "prompt_tokens": 2746,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2889
+  }
+}

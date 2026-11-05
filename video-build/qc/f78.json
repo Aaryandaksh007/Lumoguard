@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The screenshot shows the \"Proofing Studio\" screen of LoomGuard, a pre-publication brand governance tool, with tabs for Brand Canon, Review Workflow, Governance Insights, and Audit Trail, plus a \"PayPal Simulation\" badge and \"Acting as Creator\" selector. The right panel lists flagged issues—including a \"$10 cash back\" PayPal Orders API v2 reconciliation (order SIM-2D6B896FLROF, intent-preservation 100%, glm-4.6) and two MEDIUM \"FORMULAIC_CLICHE\" findings suggesting fixes like \"delve into → examine\" and \"harness the power of → apply,\" each with \"Accept Surgical Fix\" / \"Override / Keep Original\" buttons and \"Trace Provenance\" links. A large empty area occupies the left half of the content region (possibly an unloaded document pane), no mouse cursor is visible, and there are no obvious rendering glitches beyond that blank space.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1793857340,
+  "id": "20261105134214977ad86e39ce4c3a",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "20261105134214977ad86e39ce4c3a",
+  "usage": {
+    "completion_tokens": 197,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2746,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2943
+  }
+}

@@ -1,61 +1,72 @@
 # LoomGuard — The Fabric of Trust
-## 2-Minute Film Voiceover Script (cinematic trailer register)
+## Product Demo Voiceover Script (clear demo register, ~2:20)
 
-**Voice direction:** Measured movie-trailer gravitas. Low, close-mic, unhurried.
-**Runtime target:** ~2:00 narration + ~0:40 product beat = under 3:00 total.
+**Voice direction:** Clear, measured product-documentary register. Crisp diction,
+unhurried but forward-moving. Every sentence describes what is on screen.
+**Mix spec:** −16 LUFS integrated, −1.5 dBTP true peak (broadcast-clear voice).
+**Runtime target:** ~2:20 narration → under 2:50 total. Maximum runtime on the
+live prototype: the film cold open is 10 seconds; everything else is the product working.
 
 ---
 
-### S1 — OVERTURE (over preloader → hero title) · target 0:00–0:14
+### S1 — COLD OPEN (film hero → SKIP → PRODUCT) · ~11s
 
-> Every brand is a fabric.
-> Woven from every word, every color, every claim it ships to the world.
-> And one thread — one wrong thread — can unravel the whole thing.
+> Every brand is a fabric — woven from every word, every color, every claim it ships to the world.
+> And one wrong thread can unravel the whole thing.
+> This is LoomGuard. Watch it work.
 
-### S2 — ACT I · THE SNAPPED THREAD (23:47 incident) · target 0:14–0:38
+### S2 — PROOFING STUDIO (product loads, draft + audit bay) · ~12s
 
-> Twenty-three forty-seven.
-> A launch email goes out with a single wrong word.
-> By morning: two point one million impressions, a superseded price, a leaked codename.
-> Legal finds out from Twitter.
-> This is not a hypothetical. This is Tuesday.
+> This is the Proofing Studio.
+> On the left, a real campaign draft — the Aurelia Black spring rewards email.
+> On the right, the audit bay. One click: run the pre-publication audit.
 
-### S3 — ACT II · THE LOOM (thesis + pipeline) · target 0:38–1:10
+### S3 — THE AUDIT RUNS (click → spinner → two stages) · ~15s
 
-> LoomGuard.
-> The pre-publication loom that inspects every thread before it ships.
-> Stage one: deterministic engines. Color science, accessibility, terminology. Under fifty milliseconds.
-> Stage two: a semantic A.I. pass, grounding every claim against the living fact ledger.
-> And when it finds a flaw, it does not rewrite.
-> It proposes a surgical diff — and a human approves.
+> Stage one — deterministic engines: terminology, color science, accessibility, confidentiality. Under fifty milliseconds.
+> Stage two — a semantic A.I. pass that grounds every claim against the brand's living fact ledger.
 
-### S4 — ACT III · SEVEN PILLARS + PAYPAL (diff theater) · target 1:10–1:38
+### S4 — THE VERDICT (readiness score + findings stream) · ~16s
 
-> Seven pillars of verification. Including the one nobody else dares to check: transaction integrity.
-> Every advertised price is re-charged through the PayPal Orders API.
-> If the copy says nineteen dollars, but checkout charges twenty-four ninety-nine — the campaign stops right there.
-> Drip pricing, caught before it ships.
+> The verdict is back in seconds. Audit readiness: zero.
+> A superseded interest rate. An unsubstantiated "lowest rate ever" claim.
+> Nine findings — every one citing its rule, its evidence, and its fix.
 
-### S5 — ACT III · THE RECEIPTS (provenance + GAS) · target 1:38–1:52
+### S5 — SURGICAL DIFF (expand finding → diff + intent gate) · ~14s
+
+> LoomGuard never rewrites your words. It proposes a surgical diff —
+> with a ninety-eight percent intent-preservation score.
+> Below the intent gate, automation stops — and a human takes over.
+
+### S6 — PAYPAL CHECKOUT TRUTH ENGINE (panel → drip catch → receipt) · ~24s
+
+> Now, the pillar nobody else checks: transaction integrity.
+> Every price in the draft is extracted, structured by A.I., and re-charged through the PayPal Orders API.
+> This email advertises nineteen dollars a month — but the checkout charges twenty-four ninety-nine.
+> Drip pricing — caught, with the PayPal order on record, before a single customer ever sees it.
+
+### S7 — PROVENANCE (trace drawer: engine, model, prompt, latency) · ~10s
 
 > Every finding carries its own paper trail.
-> Which engine. Which rule. Which reviewer.
-> One hundred percent provenance, sealed in an append-only ledger.
+> Engine, model, prompt version, latency — sealed in an append-only ledger.
 
-### S6 — FINALE · THE FABRIC HOLDS · target 1:52–2:02
+### S8 — REVIEW WORKFLOW (tab: approve / override with justification) · ~12s
 
-> So when the fabric holds —
-> ship it like it's already been reviewed.
+> And humans stay in command.
+> Reviewers approve, edit, or override — with a recorded justification that carries forward to every future audit.
 
-### S7 — THE MACHINE (product demo beat) · target 2:02–2:35
+### S9 — INSIGHTS + AUDIT TRAIL (tabs) · ~13s
 
-> This is the machine at work. One audit. Seven pillars at once.
-> Terminology. Accessibility. Claims.
-> And the PayPal Checkout Truth Engine — catching a five-dollar, ninety-nine-cent drip before it ever reaches a customer.
-> LoomGuard. The fabric of trust.
+> Governance insights show which rules fire most.
+> And when the guideline itself is the problem, A.I. drafts the rewrite.
+> Every action lands in the audit trail.
+
+### S10 — CLOSE (end card) · ~7s
+
+> LoomGuard. A.I. with receipts. The fabric of trust.
 
 ---
 
-**HACKATHON COMPLIANCE NOTE** — this script explicitly names both judging criteria in the narration itself:
-- **PayPal integration** (S4 + S7): the Checkout Truth Engine re-charges advertised prices through the PayPal Orders API v2.
-- **AI incorporation** (S3 + S7): the two-stage architecture pairs deterministic engines with a semantic LLM pass.
+**HACKATHON COMPLIANCE MAP** — both judging criteria are named in the narration and shown live:
+- **PayPal integration** (S6 + S7): prices re-charged through the **PayPal Orders API v2**; drip pricing caught with the PayPal order receipt on record.
+- **AI incorporation** (S3 + S6 + S9): the two-stage architecture (deterministic × **semantic LLM pass**), **AI offer extraction** inside the Checkout Truth Engine, and the **AI-drafted guideline rewrites** in Governance Insights.

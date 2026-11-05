@@ -10,8 +10,24 @@ through the PayPal Orders API.**
 
 | File | What it is |
 |------|------------|
-| `loomguard-demo.mp4` | **2:42 cinematic demo film** (1080p30, H.264 + AAC voiceover) — the full movie-trailer journey from the 23:47 incident through the seven pillars, the surgical diff theater (including the PayPal drip-pricing catch), into the live product run. Under the 3-minute limit. |
-| `LOOMGUARD_VOICEOVER_SCRIPT.md` | The 2-minute voiceover script (7 timed sections, TTS-ready) with the compliance note mapping each judging criterion to where it appears. |
+| `loomguard-demo.mp4` | **2:33 product demo film** (1080p30, H.264 + AAC) — a clear-voiced, maximum-substance walkthrough of the working prototype: the film cold open (10 s), then the live product for the entire runtime — the Proofing Studio audit run (two-stage engine, ~6 s live LLM pass), the findings feed with surgical diffs and intent-preservation scores, the **PayPal Checkout Truth Engine catching $19-advertised vs $24.99-charged drip pricing**, the trace-provenance drawer with the PayPal order receipt, the review-workflow approval, Governance Insights, and the append-only Audit Trail. Voice mixed to **−16.5 LUFS** for broadcast-clear narration. Under the 3-minute limit. |
+| `LOOMGUARD_VOICEOVER_SCRIPT.md` | The narration script (10 timed sections) with the compliance map tying each judging criterion to the moment it appears on screen. |
+
+---
+
+## 🎬 What the video shows (minute map)
+
+| Time | Beat |
+|------|------|
+| 0:00–0:16 | Film cold open — "Every brand is a fabric" → SKIP → PRODUCT |
+| 0:16–0:30 | Proofing Studio: the Aurelia Black spring-rewards draft, empty audit bay |
+| 0:31–0:50 | **Run Pre-Publication Audit** — Stage 1 deterministic (<50 ms) + Stage 2 semantic AI pass (live, ~6 s) |
+| 0:50–1:11 | The verdict: readiness 0/100, 9 findings — superseded rate, unsubstantiated "lowest rate ever" |
+| 1:12–1:26 | Surgical diff theater — 95 % intent preservation; below the gate, humans take over |
+| 1:27–1:52 | **PayPal Checkout Truth Engine** — DRIP PRICING ($19 advertised ≠ $24.99 charged), verified order, no-SKU flag; trace drawer → **PayPal Order Receipt** + full provenance (engine, model, prompt, latency) |
+| 1:52–2:06 | Review Workflow — Brand Manager approves for publish (toast + state change) |
+| 2:06–2:26 | Governance Insights (friction quadrant, Canon Refiner) → append-only Audit Trail |
+| 2:26–2:33 | End card — *LoomGuard. AI with receipts. The fabric of trust.* |
 
 ---
 
@@ -59,10 +75,10 @@ are already documented there — the identical code path talks to
 The app runs at the preview panel (dev server on port 3000):
 
 1. Land on the film → **SKIP → PRODUCT** (or watch the three acts).
-2. **Proofing Studio** → select *“Aurelia Black — Spring Rewards Email”* → **Run Pre-Publication Audit**.
+2. **Proofing Studio** → *“Aurelia Black — Spring Rewards Email”* → **Run Pre-Publication Audit**.
 3. Watch the **Checkout Truth Engine** panel: the $19-advertised vs $24.99-charged
    drip is caught with a PayPal order on record; the $10 cash-back offer
-   verifies; the $200 Concierge tier flags unmapped.
+   verifies; the Concierge tier flags unmapped.
 4. Open **Trace Provenance** on any Transaction Integrity finding → the PayPal
    Order Receipt (order ID, environment, advertised vs. charged, SKU, status).
 5. The header shows the live PayPal mode badge; the Audit Trail records the

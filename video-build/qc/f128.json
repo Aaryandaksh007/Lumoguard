@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The screen shows LoomGuard's \"Review Workflow & RBAC Queues\" page, with a four-stage state machine (Draft → Preflight Checked → In Review → Approved for Publish), an \"Awaiting Brand Manager review\" queue containing \"Product Launch Campaign Packet — Press Release\" (16 findings), and an \"All assets\" list with \"Aurelia Black — Spring Rewards Email\" (9 findings). A mouse cursor is visible hovering over the green \"Approve for Publish\" button. There's a possible glitch: a pink/red toast in the bottom-right corner about \"9 unresolved CRITICAL/HIGH finding(s)\" appears partially cut off at the screen edge, and the page has a large empty area below the content, but the overall layout is otherwise clean.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1793857364,
+  "id": "2026110513423684f682af47774775",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "2026110513423684f682af47774775",
+  "usage": {
+    "completion_tokens": 157,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2746,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2903
+  }
+}

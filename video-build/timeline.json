@@ -1,0 +1,106 @@
+[
+ {
+  "event": "wait:SKIP \u2192 PRODUCT -> OK (0.1s)",
+  "t": 0.11
+ },
+ {
+  "event": "hero_ready",
+  "t": 0.11
+ },
+ {
+  "event": "skip_clicked (OK)",
+  "t": 14.48
+ },
+ {
+  "event": "wait:Run Pre-Publication Audit -> OK (1.1s)",
+  "t": 15.59
+ },
+ {
+  "event": "product_loaded",
+  "t": 15.59
+ },
+ {
+  "event": "s2_scroll_down OK",
+  "t": 19.65
+ },
+ {
+  "event": "s2_scroll_up OK",
+  "t": 25.44
+ },
+ {
+  "event": "run_clicked (OK)",
+  "t": 29.57
+ },
+ {
+  "event": "wait:Audit Readiness -> OK (7.4s)",
+  "t": 36.98
+ },
+ {
+  "event": "results_ready",
+  "t": 36.98
+ },
+ {
+  "event": "f_scroll1 OK",
+  "t": 49.84
+ },
+ {
+  "event": "f_scroll2 OK",
+  "t": 54.44
+ },
+ {
+  "event": "f_scroll3 OK",
+  "t": 59.04
+ },
+ {
+  "event": "voice_card ",
+  "t": 67.74
+ },
+ {
+  "event": "checkout_view NOT FOUND",
+  "t": 82.34
+ },
+ {
+  "event": "trace_opened OK",
+  "t": 105.61
+ },
+ {
+  "event": "drawer_scroll1 OK",
+  "t": 113.8
+ },
+ {
+  "event": "drawer_scroll2 OK",
+  "t": 113.84
+ },
+ {
+  "event": "drawer_closed",
+  "t": 117.08
+ },
+ {
+  "event": "wf_tab True",
+  "t": 118.29
+ },
+ {
+  "event": "role_open OK",
+  "t": 119.68
+ },
+ {
+  "event": "role_switched OK",
+  "t": 120.58
+ },
+ {
+  "event": "approve_clicked True",
+  "t": 124.36
+ },
+ {
+  "event": "insights_tab True",
+  "t": 128.3
+ },
+ {
+  "event": "trail_tab True",
+  "t": 134.74
+ },
+ {
+  "event": "record_stopped",
+  "t": 142.64
+ }
+]

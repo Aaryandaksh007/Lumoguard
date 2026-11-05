@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The frame shows \"LoomGuard – Pre-Publication Brand Governance,\" a Proofing Studio interface with tabs for Brand Canon, Review Workflow (1), Governance Insights, and Audit Trail, plus a \"PayPal Simulation\" badge and \"Acting as Brand Manager\" dropdown. The right panel lists pricing reconciliation checks (a red \"DRIP PRICING\" mismatch of advertised 19.00 USD vs charged 24.99 USD, a yellow \"NO SKU\" unmapped offer, and a green \"VERIFIED\" 10.00 USD match with receipt IDs SIM-2D6B896FLROF/SIM-B5BCFE98LROF) and a \"Findings (9 pending of 9)\" section with a CRITICAL \"Fact & Claim Substantiation – UNSUBSTANTIATED_PROMOTIONAL_CLAIM\" finding offering \"Accept Surgical Fix\" / \"Override / Keep Original\" buttons. No mouse cursor is visible, and the layout renders cleanly—no broken elements or glitches, though the left editor panel is mostly empty/white space.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1793857347,
+  "id": "202611051342221ea2d25e8b9e4bcd",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "202611051342221ea2d25e8b9e4bcd",
+  "usage": {
+    "completion_tokens": 221,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2746,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2967
+  }
+}

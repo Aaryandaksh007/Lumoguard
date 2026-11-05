@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The screen shows the \"Proofing Studio\" tab of LoomGuard (\"Pre-Publication Brand Governance\"), with a draft editor for \"Aurelia Black — Spring Rewards Email\" (592 chars, MARKDOWN tag) on the left and an empty audit panel on the right reading \"No audit yet — run the pre-publication audit to see findings.\" The top nav includes Brand Canon, Review Workflow, Governance Insights, Audit Trail, a Privacy Lock toggle, \"PAYPAL SIMULATION\" badge, and an \"ACTING AS Creator\" dropdown, plus a \"Run Pre-Publication Audit\" button. A mouse cursor is visible in the bottom-right corner, and there are no rendering glitches or broken layout.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1793857320,
+  "id": "202611051341568cd02b556db745ff",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "202611051341568cd02b556db745ff",
+  "usage": {
+    "completion_tokens": 147,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2746,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2893
+  }
+}

@@ -1,0 +1,106 @@
+[
+ {
+  "event": "wait:SKIP \u2192 PRODUCT -> OK (1.4s)",
+  "t": 1.39
+ },
+ {
+  "event": "hero_ready",
+  "t": 1.39
+ },
+ {
+  "event": "skip_clicked (OK)",
+  "t": 14.46
+ },
+ {
+  "event": "wait:Run Pre-Publication Audit -> OK (0.8s)",
+  "t": 15.29
+ },
+ {
+  "event": "product_loaded",
+  "t": 15.29
+ },
+ {
+  "event": "s2_scroll_down OK",
+  "t": 30.43
+ },
+ {
+  "event": "s2_scroll_up OK",
+  "t": 30.47
+ },
+ {
+  "event": "run_clicked (OK)",
+  "t": 30.69
+ },
+ {
+  "event": "wait:Audit Readiness -> OK (0.1s)",
+  "t": 30.79
+ },
+ {
+  "event": "results_ready",
+  "t": 30.79
+ },
+ {
+  "event": "f_scroll1 OK",
+  "t": 49.84
+ },
+ {
+  "event": "f_scroll2 OK",
+  "t": 54.45
+ },
+ {
+  "event": "f_scroll3 OK",
+  "t": 59.04
+ },
+ {
+  "event": "voice_card OK",
+  "t": 67.74
+ },
+ {
+  "event": "checkout_view NOT FOUND",
+  "t": 82.34
+ },
+ {
+  "event": "trace_locate FAILED {'found': False, 'raw': '{\\\\\"found\\\\\":true}'}",
+  "t": 104.95
+ },
+ {
+  "event": "drawer_scroll1 NO",
+  "t": 108.65
+ },
+ {
+  "event": "drawer_scroll2 NO",
+  "t": 112.94
+ },
+ {
+  "event": "drawer_closed",
+  "t": 117.05
+ },
+ {
+  "event": "wf_tab True",
+  "t": 118.32
+ },
+ {
+  "event": "role_combo FAILED {'found': False, 'raw': '{\\\\\"found\\\\\":true,\\\\\"x\\\\\":1652,\\\\\"y\\\\\":30}'}",
+  "t": 119.74
+ },
+ {
+  "event": "role_option FAILED {'found': False, 'raw': '{\\\\\"found\\\\\":false}'}",
+  "t": 120.94
+ },
+ {
+  "event": "approve_clicked False",
+  "t": 129.08
+ },
+ {
+  "event": "insights_tab True",
+  "t": 129.19
+ },
+ {
+  "event": "trail_tab True",
+  "t": 134.73
+ },
+ {
+  "event": "record_stopped",
+  "t": 142.64
+ }
+]

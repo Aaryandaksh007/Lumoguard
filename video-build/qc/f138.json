@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The screen shows LoomGuard's \"Governance Insights — Guideline Ambiguity Score\" dashboard, with a friction quadrant scatter plot (GAS vs rule triggers), summary cards (\"18 Clear rules, repeated mistakes\" and \"1 Unclear brand guidelines\"), and a \"Rule-level telemetry & recommended actions\" list with GAS scores like 2.217 and 0.378. A mouse cursor is visible near the \"Governance Insights\" tab. No rendering glitches or broken layout — everything appears clean.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1793857374,
+  "id": "20261105134247353eea72ec6b44cf",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "20261105134247353eea72ec6b44cf",
+  "usage": {
+    "completion_tokens": 105,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2746,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2851
+  }
+}

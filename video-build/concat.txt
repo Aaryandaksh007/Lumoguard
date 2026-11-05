@@ -1,0 +1,6 @@
+file '/home/z/my-project/video-build/procA.mp4'
+file '/home/z/my-project/video-build/procB.mp4'
+file '/home/z/my-project/video-build/procC.mp4'
+file '/home/z/my-project/video-build/procD.mp4'
+file '/home/z/my-project/video-build/procE.mp4'
+file '/home/z/my-project/video-build/procF.mp4'

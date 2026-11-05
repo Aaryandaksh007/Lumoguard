@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The screen shows LoomGuard's \"Proofing Studio\" (tabs: Brand Canon, Review Workflow, Governance Insights, Audit Trail), with a markdown editor for \"Aurelia Black — Spring Rewards Email\" (592 chars) mentioning $19/month, $10 cash back, and $200/year Concierge terms, plus an empty audit panel reading \"No audit yet — run the pre-publication audit to see findings\" and an \"Auditing...\" button. Yes, a mouse cursor is visible hovering over the Auditing button. No rendering glitches or broken layout are apparent.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1793857326,
+  "id": "20261105134202f27bd448544f46bd",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "20261105134202f27bd448544f46bd",
+  "usage": {
+    "completion_tokens": 119,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2746,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2865
+  }
+}

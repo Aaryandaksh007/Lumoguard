@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The screenshot shows LoomGuard's \"Proofing Studio\" (with tabs Brand Canon, Review Workflow, Governance Insights) listing flagged copy findings — CRITICAL and MEDIUM \"Transaction Integrity (PayPal)\" items, each with redacted text diffs, intent-preservation percentages, and \"Accept Surgical Fix\" / \"Override / Keep Original\" buttons. A right-side detail panel shows \"PayPal Order Receipt — Checkout Truth\" (order SIM-B5BCFE98LROF, advertised 19.00 vs charged 24.99 USD, SKU AURE-BLACK-MEMB), \"2 · Exact Context Lineage\", \"3 · Confidentiality Shield Audit Proof\", and a raw JSON finding record. Yes, a mouse cursor is visible near the shield-audit panel, and no rendering glitches appear — though the left portion of the frame is empty/dimmed gray, which reads as intentional layout rather than breakage.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1793857354,
+  "id": "20261105134229dfd2a4fb80b6413a",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "20261105134229dfd2a4fb80b6413a",
+  "usage": {
+    "completion_tokens": 190,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2746,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2936
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "This is the \"Proofing Studio\" screen of LoomGuard, a pre-publication brand governance tool, showing a markdown email draft (\"Aurelia Black — Spring Rewards Email\", 592 chars) on the left and an audit panel on the right with an \"Audit Readiness\" score of 0, \"5 critical\" flags, and a \"Checkout Truth Engine\" panel (PayPal Orders API v2 · Simulation) listing drip-pricing, no-SKU, and verified offer checks with amounts like 19.00 vs 24.99 USD and 10.00 USD. A cursor is visible hovering over the \"Run Pre-Publication Audit\" button in the top right. The layout appears clean with no rendering glitches or broken elements.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1793857332,
+  "id": "20261105134208b13c4d603c36450b",
+  "model": "glm-5.3-flash",
+  "object": "chat.completion",
+  "request_id": "20261105134208b13c4d603c36450b",
+  "usage": {
+    "completion_tokens": 157,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 2746,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2903
+  }
+}

@@ -1,0 +1,135 @@
+{
+ "clips": [
+  {
+   "name": "A",
+   "path": "/home/z/my-project/video-build/clipA.mp4",
+   "t0": 1793856063.834116,
+   "events": [
+    {
+     "event": "hero_ready",
+     "t": 0.36
+    },
+    {
+     "event": "skip_clicked (OK)",
+     "t": 15.56
+    },
+    {
+     "event": "product_loaded",
+     "t": 16.86
+    },
+    {
+     "event": "aurelia_default",
+     "t": 17.09
+    },
+    {
+     "event": "s2_scroll_down OK",
+     "t": 24.55
+    },
+    {
+     "event": "s2_scroll_up OK",
+     "t": 27.84
+    }
+   ]
+  },
+  {
+   "name": "B",
+   "path": "/home/z/my-project/video-build/clipB.mp4",
+   "t0": 1793856095.9178398,
+   "events": [
+    {
+     "event": "run_clicked (OK)",
+     "t": 0.43
+    },
+    {
+     "event": "results_ready",
+     "t": 6.27
+    }
+   ]
+  },
+  {
+   "name": "C",
+   "path": "/home/z/my-project/video-build/clipC.mp4",
+   "t0": 1793856118.0219164,
+   "events": [
+    {
+     "event": "f_scroll1 OK",
+     "t": 6.55
+    },
+    {
+     "event": "f_scroll2 OK",
+     "t": 11.84
+    },
+    {
+     "event": "f_scroll3 OK",
+     "t": 17.04
+    },
+    {
+     "event": "voice_card OK",
+     "t": 20.54
+    }
+   ]
+  },
+  {
+   "name": "D",
+   "path": "/home/z/my-project/video-build/clipD.mp4",
+   "t0": 1793856154.719093,
+   "events": [
+    {
+     "event": "checkout_view OK",
+     "t": 0.44
+    },
+    {
+     "event": "trace_click OK @(1638,-737)",
+     "t": 23.15
+    },
+    {
+     "event": "WARN: receipt not visible",
+     "t": 33.33
+    },
+    {
+     "event": "drawer_scroll1 NO",
+     "t": 33.37
+    },
+    {
+     "event": "drawer_scroll2 NO",
+     "t": 33.42
+    }
+   ]
+  },
+  {
+   "name": "E",
+   "path": "/home/z/my-project/video-build/clipE.mp4",
+   "t0": 1793856190.8023677,
+   "events": [
+    {
+     "event": "drawer_closed",
+     "t": 0.55
+    },
+    {
+     "event": "wf_tab True",
+     "t": 1.6
+    },
+    {
+     "event": "role_combo OK",
+     "t": 2.99
+    },
+    {
+     "event": "role_option OK",
+     "t": 4.24
+    },
+    {
+     "event": "approve_clicked True",
+     "t": 6.57
+    },
+    {
+     "event": "insights_tab True",
+     "t": 12.34
+    },
+    {
+     "event": "trail_tab True",
+     "t": 18.59
+    }
+   ]
+  }
+ ]
+}
