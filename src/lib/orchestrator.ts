@@ -53,7 +53,7 @@ export interface OrchestratorOptions {
 
 const INTENT_GATE = 0.75;
 const INTENT_GATE_CLAIM = 0.55; // corrective rewrites legitimately change numbers/superlatives
-const LLM_TIMEOUT_MS = 60_000;
+const LLM_TIMEOUT_MS = 5_000;
 
 export class VerificationOrchestrator {
   private termEngine: TerminologyEngine;

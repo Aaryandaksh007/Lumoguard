@@ -169,7 +169,7 @@ Respond with JSON: {"offers":[{"index":0,"item":"...","sku":"SKU or null","offer
         ],
         thinking: { type: "disabled" },
       }),
-      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 25_000)),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 5_000)),
     ])) as { choices?: { message?: { content?: string } }[] };
 
     const raw = completion.choices?.[0]?.message?.content ?? "";
