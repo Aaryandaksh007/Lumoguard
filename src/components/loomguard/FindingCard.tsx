@@ -14,13 +14,19 @@ import type { FindingDTO } from "@/lib/api-types";
 interface FindingCardProps {
   finding: FindingDTO;
   onOpenTrace: (finding: FindingDTO) => void;
-  onActionComplete: () => void;
+  onActionComplete: (action: "ACCEPT" | "OVERRIDE", diff?: string, original?: string) => void;
   disabled?: boolean;
 }
 
 export function FindingCard({ finding, onOpenTrace, onActionComplete, disabled }: FindingCardProps) {
   const [acting, setActing] = useState<"accept" | "override" | null>(null);
   const [showOverride, setShowOverride] = useState(false);
+  const [currentStatus, setCurrentStatus] = useState<string>(finding.status);
+
+  // keep in sync with finding prop
+  if (finding.status !== currentStatus && acting === null && (finding.status === "ACCEPTED" || finding.status === "OVERRIDDEN")) {
+    setCurrentStatus(finding.status);
+  }
 
   const chunks =
     finding.suggestedDiff && finding.suggestedDiff !== finding.originalSpan
@@ -46,10 +52,11 @@ export function FindingCard({ finding, onOpenTrace, onActionComplete, disabled }
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Accept failed");
+      setCurrentStatus("ACCEPTED");
       toast.success("Surgical diff applied", {
         description: "The minimal-span edit was committed; the prior text remains in the version history.",
       });
-      onActionComplete();
+      onActionComplete("ACCEPT", finding.suggestedDiff, finding.originalSpan);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to apply diff");
     } finally {
@@ -72,11 +79,12 @@ export function FindingCard({ finding, onOpenTrace, onActionComplete, disabled }
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Override failed");
+      setCurrentStatus("OVERRIDDEN");
       toast.warning("Flag overridden — routed for review", {
         description:
           "Your structured justification was logged to the audit trail and feeds the Guideline Ambiguity Score.",
       });
-      onActionComplete();
+      onActionComplete("OVERRIDE");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to record override");
     } finally {
@@ -85,7 +93,7 @@ export function FindingCard({ finding, onOpenTrace, onActionComplete, disabled }
     }
   }
 
-  const resolved = finding.status !== "PENDING";
+  const resolved = currentStatus !== "PENDING";
 
   return (
     <Card
@@ -183,17 +191,17 @@ export function FindingCard({ finding, onOpenTrace, onActionComplete, disabled }
           <div className="flex flex-wrap items-center gap-2 border-t border-dashed border-slate-200 pt-3">
             <span
               className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${
-                finding.status === "ACCEPTED"
+                currentStatus === "ACCEPTED"
                   ? "bg-emerald-100 text-emerald-800"
                   : "bg-amber-100 text-amber-800"
               }`}
             >
-              {finding.status === "ACCEPTED" ? (
+              {currentStatus === "ACCEPTED" ? (
                 <Check className="h-3 w-3" aria-hidden />
               ) : (
                 <ShieldQuestion className="h-3 w-3" aria-hidden />
               )}
-              {finding.status === "ACCEPTED"
+              {currentStatus === "ACCEPTED"
                 ? "Surgical diff accepted & applied"
                 : "Overridden with justification — routed to review queue"}
             </span>

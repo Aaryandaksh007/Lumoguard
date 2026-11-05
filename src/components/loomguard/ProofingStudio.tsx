@@ -85,8 +85,19 @@ export function ProofingStudio({
         const res = await fetch(`/api/assets/${id}`);
         if (!res.ok) throw new Error("Failed to load asset");
         const detail: AssetDetail = await res.json();
-        setAsset(detail);
-        setDraft(detail.content);
+        setAsset((prev) => {
+          if (prev && prev.id === detail.id && (prev.runs?.length ?? 0) > (detail.runs?.length ?? 0)) {
+            return {
+              ...detail,
+              runs: prev.runs,
+              status: prev.status,
+            };
+          }
+          return detail;
+        });
+        setDraft((prevDraft) => {
+          return prevDraft && prevDraft !== detail.content ? prevDraft : detail.content;
+        });
         setDirty(false);
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "Failed to load asset");
@@ -95,13 +106,60 @@ export function ProofingStudio({
     []
   );
 
-  // Auto-select first asset
+  // Auto-select first asset if none is selected
   useEffect(() => {
-    if (!activeAssetId && assets.length > 0) setActiveAssetId(assets[0].id);
-    if (activeAssetId) void loadAsset(activeAssetId);
-  }, [activeAssetId, assets, setActiveAssetId, loadAsset]);
+    if (!activeAssetId && assets.length > 0) {
+      setActiveAssetId(assets[0].id);
+    }
+  }, [activeAssetId, assets, setActiveAssetId]);
+
+  // Load asset when activeAssetId changes
+  useEffect(() => {
+    if (activeAssetId) {
+      void loadAsset(activeAssetId);
+    }
+  }, [activeAssetId, loadAsset]);
 
   const latestRun: RunDTO | null = asset?.runs?.[0] ?? null;
+
+  function handleFindingAction(
+    findingId: string,
+    action: "ACCEPT" | "OVERRIDE",
+    suggestedDiff?: string,
+    originalSpan?: string
+  ) {
+    setAsset((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        runs: (prev.runs ?? []).map((r, i) => {
+          if (i !== 0) return r;
+          return {
+            ...r,
+            findings: r.findings.map((f) => {
+              if (f.id === findingId || f.findingId === findingId) {
+                return {
+                  ...f,
+                  status: action === "ACCEPT" ? "ACCEPTED" : "OVERRIDDEN",
+                };
+              }
+              return f;
+            }),
+          };
+        }),
+      };
+    });
+
+    if (action === "ACCEPT" && suggestedDiff && originalSpan) {
+      setDraft((prevDraft) => {
+        if (prevDraft.includes(originalSpan)) {
+          return prevDraft.replace(originalSpan, suggestedDiff);
+        }
+        return prevDraft;
+      });
+      setDirty(true);
+    }
+  }
 
   async function saveDraft(autoToast = true) {
     if (!asset) return;
@@ -134,9 +192,16 @@ export function ProofingStudio({
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Audit failed");
-      await loadAsset(asset.id);
-      onAssetsChanged();
       const run = data.run as RunDTO;
+      setAsset((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          status: "PREFLIGHT_CHECKED",
+          runs: [run, ...(prev.runs ?? []).filter((r) => r.id !== run.id)],
+        };
+      });
+      onAssetsChanged();
       const critical = (run.findingsBySeverity.CRITICAL ?? 0) + (run.findingsBySeverity.HIGH ?? 0);
       if (run.llmStatus === "DEGRADED") {
         toast.warning("Semantic pass degraded — deterministic findings intact", {
@@ -365,8 +430,8 @@ export function ProofingStudio({
                             key={f.findingId}
                             finding={f}
                             onOpenTrace={setTraceFinding}
-                            onActionComplete={() => {
-                              void loadAsset(asset.id);
+                            onActionComplete={(act, diff, orig) => {
+                              handleFindingAction(f.findingId, act, diff, orig);
                               onAssetsChanged();
                             }}
                             disabled={auditing}
