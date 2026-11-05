@@ -10,7 +10,7 @@
 //   when the external AI service is down or air-gapped.
 // ============================================================
 
-import ZAI from "z-ai-web-dev-sdk";
+import { ai, getAiModel } from "@/lib/ai";
 import { ClaimGroundingEngine, decomposeClaims } from "@/lib/engines/claims";
 import { CheckoutTruthEngine } from "@/lib/engines/offer-verify";
 import { ConfidentialityShield } from "@/lib/engines/confidentiality";
@@ -20,7 +20,6 @@ import { AccessibilityEngine } from "@/lib/engines/wcag";
 import { VisualGeometryEngine } from "@/lib/engines/visual-geometry";
 import { VoiceToneEngine } from "@/lib/engines/voice-tone";
 import {
-  LLM_MODEL_ID,
   PROMPT_VERSION,
   type AuditResult,
   type FactData,
@@ -217,7 +216,7 @@ export class VerificationOrchestrator {
       stage2LatencyMs,
       totalLatencyMs,
       llmStatus,
-      llmModel: llmStatus === "OK" ? LLM_MODEL_ID : null,
+      llmModel: llmStatus === "OK" ? getAiModel() : null,
       promptVersion: llmStatus === "OK" ? PROMPT_VERSION : null,
       paypalStatus:
         checkoutReport.offers.length > 0
@@ -263,7 +262,7 @@ export class VerificationOrchestrator {
         required_disclaimer: f.requiredDisclaimerText,
       }));
 
-      const systemPrompt = `You are LoomGuard's Stage-2 claim-grounding engine (model ${LLM_MODEL_ID}, prompt ${PROMPT_VERSION}). You receive a draft document (with {{TYPE_N}} placeholders standing in for confidential material — treat every placeholder as an immutable opaque variable and NEVER attempt to guess or expand it) and the brand's Approved Fact Ledger. For each extracted claim, classify it:
+      const systemPrompt = `You are LoomGuard's Stage-2 claim-grounding engine (model ${getAiModel()}, prompt ${PROMPT_VERSION}). You receive a draft document (with {{TYPE_N}} placeholders standing in for confidential material — treat every placeholder as an immutable opaque variable and NEVER attempt to guess or expand it) and the brand's Approved Fact Ledger. For each extracted claim, classify it:
 - VERIFIED_CANONICAL: logically entailed by an active CANONICAL record
 - OUTDATED_FACT: matches a SUPERSEDED record (propose updating figures to the active canonical value)
 - ASPIRATIONAL_STATED_AS_PRESENT: matches a ROADMAP_ASPIRATIONAL record but is written in present tense (propose hedged roadmap framing)
@@ -284,9 +283,8 @@ ${claims.map((c, i) => `[${i}] ${c.sentence}`).join("\n")}
 
 Respond with JSON: {"findings":[{"claim_index":0,"verdict":"...","matched_fact_id":"FACT-000 or null","suggested_diff":"..." or null,"explanation":"1-3 sentences citing the fact id and regulatory context (FTC Act §5 / Operation AI Comply for promotional claims, SEC AI-washing for aspirational-present-tense)","confidence":0.0-1.0}],"missing_disclaimer":"the required disclaimer text if MISSING_MANDATORY_DISCLAIMER applies to the document, else null"}`;
 
-      const zai = await ZAI.create();
       const completion = (await Promise.race([
-        zai.chat.completions.create({
+        ai.chat.completions.create({
           messages: [
             { role: "assistant", content: systemPrompt },
             { role: "user", content: userPrompt },
@@ -351,7 +349,7 @@ Respond with JSON: {"findings":[{"claim_index":0,"verdict":"...","matched_fact_i
             citation: matchedFact ? `Fact Ledger ${matchedFact.factId} (${matchedFact.status})` : "Approved Fact Ledger",
             latencyMs,
             contextMode: "DYNAMIC_FACT_LEDGER",
-            model: LLM_MODEL_ID,
+            model: getAiModel(),
             promptVersion: PROMPT_VERSION,
             retrievedClauses: matchedFact
               ? [

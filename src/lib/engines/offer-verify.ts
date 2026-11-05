@@ -21,10 +21,9 @@
 //      in its provenance — before the campaign ever ships.
 // ============================================================
 
-import ZAI from "z-ai-web-dev-sdk";
+import { ai, getAiModel } from "@/lib/ai";
 import { createPaypalOrder, getPaypalMode } from "@/lib/paypal";
 import type { PaypalOrderRecord, RawFinding } from "@/lib/types";
-import { LLM_MODEL_ID } from "@/lib/types";
 
 /* ── The Merchant Pricing Canon ──────────────────────────────
    The canonical charge registry: what the checkout ACTUALLY
@@ -146,13 +145,13 @@ async function enrichWithAI(
   const out = new Map<number, EnrichedOffer>();
   if (offers.length === 0) return out;
   try {
-    const zai = await ZAI.create();
+    const activeModel = getAiModel();
     const completion = (await Promise.race([
-      zai.chat.completions.create({
+      ai.chat.completions.create({
         messages: [
           {
             role: "assistant",
-            content: `You are LoomGuard's Offer Term Extractor (model ${LLM_MODEL_ID}). For each monetary offer span in a draft marketing document, identify (a) the product/item being priced, (b) the matching SKU from the provided pricing canon (or null if none matches), and (c) the offer type. Treat {{TYPE_N}} placeholders as opaque variables. Respond ONLY with valid JSON.`,
+            content: `You are LoomGuard's Offer Term Extractor (model ${activeModel}). For each monetary offer span in a draft marketing document, identify (a) the product/item being priced, (b) the matching SKU from the provided pricing canon (or null if none matches), and (c) the offer type. Treat {{TYPE_N}} placeholders as opaque variables. Respond ONLY with valid JSON.`,
           },
           {
             role: "user",
@@ -421,7 +420,7 @@ export class CheckoutTruthEngine {
           : "Merchant Pricing Canon — no entailing SKU",
         latencyMs: latency,
         contextMode: "LOCKED_PRICING_CANON",
-        model: aiEnrichment === "OK" ? LLM_MODEL_ID : undefined,
+        model: aiEnrichment === "OK" ? getAiModel() : undefined,
         airGappedMode: airGapped,
         paypal: snap
           ? {

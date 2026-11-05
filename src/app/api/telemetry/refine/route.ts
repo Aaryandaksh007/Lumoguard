@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import ZAI from "z-ai-web-dev-sdk";
+import { ai, getAiModel } from "@/lib/ai";
 import { db } from "@/lib/db";
-import { LLM_MODEL_ID, PROMPT_VERSION } from "@/lib/types";
+import { PROMPT_VERSION } from "@/lib/types";
 import { recomputeGasScores } from "@/lib/seed";
 
 export const dynamic = "force-dynamic";
@@ -31,12 +31,12 @@ export async function POST(req: NextRequest) {
       .map((o) => `${o.overrideReason ?? "UNSPECIFIED"}: ${o.comment ?? "(no comment provided)"}`)
       .slice(0, 12);
 
-    const zai = await ZAI.create();
-    const completion = await zai.chat.completions.create({
+    const activeModel = getAiModel();
+    const completion = await ai.chat.completions.create({
       messages: [
         {
           role: "assistant",
-          content: `You are LoomGuard's Canon Refiner Agent (model ${LLM_MODEL_ID}, prompt ${PROMPT_VERSION}). You receive a brand guideline whose telemetry shows disproportionate human override/dispute friction (a high Guideline Ambiguity Score), plus the written override justifications from creators and reviewers. Synthesize them into ONE disambiguated guideline upgrade: a single rewritten guideline sentence, two concrete DO examples, two concrete DON'T examples, and a one-sentence rationale referencing the observed friction. Respond ONLY with valid JSON.`,
+          content: `You are LoomGuard's Canon Refiner Agent (model ${activeModel}, prompt ${PROMPT_VERSION}). You receive a brand guideline whose telemetry shows disproportionate human override/dispute friction (a high Guideline Ambiguity Score), plus the written override justifications from creators and reviewers. Synthesize them into ONE disambiguated guideline upgrade: a single rewritten guideline sentence, two concrete DO examples, two concrete DON'T examples, and a one-sentence rationale referencing the observed friction. Respond ONLY with valid JSON.`,
         },
         {
           role: "user",
@@ -97,7 +97,7 @@ Respond with JSON: {"upgraded_guideline":"one sentence","do_examples":["...","..
           ruleId,
           gasScore: telemetry.gasScore,
           synthesizedFrom: overrideNotes.length,
-          model: LLM_MODEL_ID,
+          model: activeModel,
           promptVersion: PROMPT_VERSION,
           degraded: !parsed.upgraded_guideline,
         }),
@@ -117,7 +117,7 @@ Respond with JSON: {"upgraded_guideline":"one sentence","do_examples":["...","..
       refined,
       provenance: {
         engine: "EXTERNAL_AI_SERVICE",
-        model: LLM_MODEL_ID,
+        model: activeModel,
         promptVersion: PROMPT_VERSION,
         synthesizedFromOverrides: overrideNotes.length,
         degraded: !parsed.upgraded_guideline,
