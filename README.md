@@ -68,3 +68,4 @@ The most expensive class of brand failure lives in the gap between what a campai
 - **Frontend**: React 19, Tailwind CSS v4, Radix UI, Framer Motion, Lucide Icons
 - **Database & ORM**: SQLite, Prisma ORM
 - **APIs & Integrations**: PayPal Orders API v2, NVIDIA NIM Inference API
+
